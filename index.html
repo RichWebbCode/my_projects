@@ -42,32 +42,6 @@
     <footer>
         <p>&copy; 2024 Richard Webb</p>
     </footer>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            window.addEventListener("scroll", function () {
-                let projects = document.querySelectorAll(".project");
-
-                projects.forEach(function (project) {
-                    if (isElementInViewport(project)) {
-                        project.classList.add("fly-in");
-                    }
-                });
-            });
-
-            function isElementInViewport(el) {
-                let rect = el.getBoundingClientRect();
-                return (
-                    rect.top >= 0 &&
-                    rect.left >= 0 &&
-                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-                );
-            }
-        });
-    </script>
-
-
 </body>
 
 </html>
