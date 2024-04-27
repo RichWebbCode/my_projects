@@ -52,13 +52,15 @@ footer {
 }
 
 /* Animation keyframes */
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+.fly-in {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.project {
+    margin-bottom: 40px; /* Increase margin to create space between projects */
+    position: relative;
+    opacity: 0; /* Set initial opacity to 0 for animation */
+    transform: translateX(-100%); /* Initial position off-screen */
 }

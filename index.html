@@ -1,32 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My IT Projects</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <header>
         <h1>My IT Projects</h1>
     </header>
-    
+
     <main>
         <div class="project">
             <div class="project-description">
                 <h2>Live Inventory Screens</h2>
                 <p>Brief:</p>
-                <p>Create live inventory screens that will link into the stock management system and replace the manually written white board. </p>
+                <p>Create live inventory screens that will link into the stock management system and replace the
+                    manually written white board. </p>
             </div>
-            <img src="project1.png" alt="Project 1">
+            <img src="stock_screen_sp1.png" alt="Live Inventory Screen Small Pack 1">
+            <img src="stock_screen_sp2.png" alt="Live Inventory Screen Small Pack 2">
+            <img src="stock_screen_cask.png" alt="Live Inventory Screen Cask">
+            <img src="stock_screen_keg.png" alt="Live Inventory Screen keg">
         </div>
 
         <div class="project">
-            <img src="project2.png" alt="Project 2">
             <div class="project-description">
-                <h2>Project 2</h2>
-                <p>Description of Project 2 goes here.</p>
+                <h2>Automated Production Reporting</h2>
+                <p>Brief:</p>
+                <p>Increase visability of Production department reports and automate the data input.</p>
             </div>
+            <img src="oliver.png" alt="Project 2">
         </div>
 
         <!-- Add more project sections as needed -->
@@ -35,5 +42,32 @@
     <footer>
         <p>&copy; 2024 Richard Webb</p>
     </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            window.addEventListener("scroll", function () {
+                let projects = document.querySelectorAll(".project");
+
+                projects.forEach(function (project) {
+                    if (isElementInViewport(project)) {
+                        project.classList.add("fly-in");
+                    }
+                });
+            });
+
+            function isElementInViewport(el) {
+                let rect = el.getBoundingClientRect();
+                return (
+                    rect.top >= 0 &&
+                    rect.left >= 0 &&
+                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                );
+            }
+        });
+    </script>
+
+
 </body>
+
 </html>
