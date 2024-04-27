@@ -11,17 +11,19 @@ header {
     background-color: #aa0bfa;
     color: #fff;
     text-align: center;
-    padding: 20px 0;
+    padding: 10px 0;
+    width: 100%;
 }
 
 main {
     padding: 20px;
-    padding-top: 100px; /* Add padding to make space for fixed-positioned titles */
+    padding-top: 50px; /* Add padding to make space for fixed-positioned titles */
 }
 
 .project {
     margin-bottom: 40px; /* Increase margin to create space between projects */
     position: relative;
+    text-align: center;
 }
 
 .project img {
@@ -42,11 +44,11 @@ main {
 }
 
 footer {
-    background-color: #333;
+    background-color: #aa0bfa;
     color: #fff;
     text-align: center;
     padding: 10px 0;
-    position: fixed;
+    /*position: fixed;*/
     width: 100%;
     bottom: 0;
 }
@@ -58,7 +60,7 @@ footer {
 }
 
 .image-container img {
-    max-width: calc(25% - 10px); /* Set maximum width for each image (25% of container width minus margin) */
+    max-width: calc(25% - 5px); /* Set maximum width for each image (25% of container width minus margin) */
     height: auto; /* Maintain aspect ratio */
     margin-bottom: 20px; /* Add margin between images */
 }
@@ -75,6 +77,7 @@ footer {
 
 .text-block {
     flex: 1; /* Allow text block to take up remaining space */
+    
 }
 
 .text-block p {
