@@ -4,38 +4,37 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    overflow-x: hidden; /* To prevent horizontal scrolling */
 }
 
 header {
-    background-color: #6f00f8;
+    background-color: #aa0bfa;
     color: #fff;
     text-align: center;
     padding: 20px 0;
 }
 
 main {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     padding: 20px;
 }
 
 .project {
-    margin: 20px;
-    max-width: 300px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px; /* Increase margin to create space between projects */
+    position: relative;
+    opacity: 0; /* Set initial opacity to 0 for animation */
+    animation: slideIn 0.5s ease forwards; /* Apply animation */
 }
 
 .project img {
-    width: 100%;
+    max-width: 100%;
     height: auto;
+    display: block; /* Ensure images don't exceed container width */
 }
 
 .project-description {
+    background-color: #f9f9f9;
     padding: 15px;
+    border-radius: 5px;
 }
 
 .project-description h2 {
@@ -50,4 +49,16 @@ footer {
     position: fixed;
     width: 100%;
     bottom: 0;
+}
+
+/* Animation keyframes */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
