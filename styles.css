@@ -317,8 +317,6 @@ time {
 }
 
 .tags {
-    flex: 5%; /* Take up 5% of the card's height */
-    align-self: last baseline;
     margin-left: 2.5%;
     margin-top: 2.5%;
 }
