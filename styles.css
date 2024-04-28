@@ -6,11 +6,12 @@ body {
     padding: 0;
     overflow-x: hidden;
     /* To prevent horizontal scrolling */
+    background-color: #27212a89;
 }
 
 header {
     /*background-color: #aa0bfa;*/
-    background-color: #474747;
+    background-color: #27212a;
     color: #fff;
     text-align: center;
     padding: 10px 0;
@@ -129,14 +130,14 @@ main {
 }
 
 footer {
-    background-color: #aa0bfa;
+    background-color: #27212a;
     color: #fff;
-    text-align: center;
-    padding: 10px 0;
-    /*position: fixed;*/
-    width: 100%;
+    text-align: right;
+    padding: 10px 20px; /* Add padding to the right */
+    width: calc(100% - 40px); /* Subtract the total padding from the width */
     bottom: 0;
 }
+
 
 .image-container {
     display: flex;
