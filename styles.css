@@ -8,7 +8,8 @@ body {
 }
 
 header {
-    background-color: #aa0bfa;
+    /*background-color: #aa0bfa;*/
+    background-color: #474747;
     color: #fff;
     text-align: center;
     padding: 10px 0;
@@ -183,3 +184,81 @@ footer {
     /* Style your image preview here */
 /*}*/
 
+.article-card {
+    background: #fff;
+    color: #474747;
+    border-radius: 8px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.24);
+    display: inline-block; /* Change display to inline-block to allow multiple cards in a row */
+    width: 30%; /* Each card occupies 30% of screen width with 2.5% space on each side */
+    margin-right: 2.5%; /* Add space between cards */
+    margin-bottom: 2.5%; /* Add space below each card */
+    box-sizing: border-box; /* Include padding and border in width calculation */
+    height: 400px;
+}
+
+@media screen and (max-width: 768px) {
+    .article-card {
+        width: calc(100% - 5%); /* Change width to 100% on smaller screens */
+        margin-right: 0; /* Remove right margin on smaller screens */
+    }
+}
+
+
+.article-thumbnail-wrap {
+    overflow: hidden;
+    width: 25%;
+}
+
+.article-thumbnail {
+    width: 100%;
+    height: auto;
+}
+
+.article-content {
+    padding: 20px;
+}
+
+.article-publication-meta {
+    margin-bottom: 10px;
+}
+
+.tags {
+    margin-bottom: 10px;
+}
+
+.tags a {
+    margin-right: 5px;
+}
+
+.card-content p {
+    margin-bottom: 10px;
+}
+
+.author-row {
+    display: flex;
+    align-items: center;
+}
+
+.author-avatar {
+    border-radius: 50%;
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+}
+
+.author-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.author-name {
+    font-weight: bold;
+}
+
+time {
+    font-style: italic;
+}
