@@ -197,7 +197,13 @@ footer {
     margin-right: 2.5%; /* Add space between cards */
     margin-bottom: 2.5%; /* Add space below each card */
     box-sizing: border-box; /* Include padding and border in width calculation */
-    height: 400px;
+    height: 600px;
+    text-align: center;
+}
+
+.article-content {
+    flex-grow: 1; /* Allow content to grow to fill available space */
+    padding: 20px;
 }
 
 @media screen and (max-width: 768px) {
@@ -207,10 +213,13 @@ footer {
     }
 }
 
-
 .article-thumbnail-wrap {
     overflow: hidden;
-    width: 25%;
+    width: 100%; /* Set width to 100% to ensure the thumbnail fills the entire width of the card */
+    height: 50%; /* Set height to 100% to ensure the thumbnail fills the entire height of the card */
+    display: flex; /* Use flexbox to center the thumbnail */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
 }
 
 .article-thumbnail {
@@ -218,16 +227,13 @@ footer {
     height: auto;
 }
 
-.article-content {
-    padding: 20px;
-}
-
 .article-publication-meta {
     margin-bottom: 10px;
 }
 
 .tags {
-    margin-bottom: 10px;
+    margin-left: 5%;
+    margin-top: 10px; /* Add space between author info and tags */
 }
 
 .tags a {
@@ -238,21 +244,25 @@ footer {
     margin-bottom: 10px;
 }
 
-.author-row {
-    display: flex;
-    align-items: center;
-}
-
 .author-avatar {
     border-radius: 50%;
     margin-right: 10px;
     width: 40px;
     height: 40px;
+    margin-left: 30%;
 }
 
 .author-info {
     display: flex;
     flex-direction: column;
+    margin-left: 5%; /* Push author info to the right */
+
+}
+
+.author-row {
+    display: flex;
+    align-items: center;
+    margin-top: auto; /* Push author row and tags to the bottom */
 }
 
 .author-name {

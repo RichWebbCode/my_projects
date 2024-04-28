@@ -36,242 +36,126 @@
         }
     </script>
 
-    <main>
+    <body>
+        <main id="article-container"></main>
 
-        <!--Breiwng Exerience Recipe App-->
-        <article class="article-card">
-            <h2>
-                <a href="brewing_app.html">Purchase Order System</a>
-            </h2>
+        <footer>
+            <p>&copy; 2024 Richard Webb</p>
+        </footer>
+
+        <script src="scripts.js"></script>
+    </body>
+
+    <script>
+        // Define data for each article
+        const articles = [
+            {
+                title: "Brewing Experience Recipe Builder",
+                link: "brewing_app.html",
+                thumbnail: "",
+                content: "Make an app that tracks the ingredients used during the Brewing Experience and give the customer live feedback on the beers colour, bitterness and fermentability",
+                author: "Rich Webb",
+                date: "Apr 28, 2024",
+                tags: ["Power Apps", "SharePoint Lists", "Power Automate"]
+            },
+            {
+                title: "Purchase Order System",
+                link: "reports.html",
+                thumbnail: "",
+                content: "Build a system to keep track of purchase orders, mark them as received and send consistent data to accounts for payment",
+                author: "Rich Webb",
+                date: "Apr 28, 2024",
+                tags: ["Power Bi"]
+            },
+            {
+                title: "Automated Production Reporting",
+                link: "automated_prodution_reporting.html",
+                thumbnail: "oliver.png",
+                content: "Codename: OLIVER",
+                author: "Rich Webb",
+                date: "Apr 28, 2024",
+                tags: ["Python", "HTML", "SharePoint API", "Selenium", "Plotly"]
+            },
+            {
+                title: "Live Inventory Screens",
+                link: "live_inventory_screens.html",
+                thumbnail: "stock_screen_cask.png",
+                content: "Screens to display up to date inventory data",
+                author: "Rich Webb",
+                date: "Apr 28, 2024",
+                tags: ["Python", "HTML", "SharePoint API", "Brewman API"]
+            },
+            {
+                title: "New Product Development",
+                link: "live_inventory_screens.html",
+                thumbnail: "",
+                content: "Code name: HOPSIGHT",
+                author: "Rich Webb",
+                date: "Apr 28, 2024",
+                tags: ["SharePoint Lists", "Power Automate"]
+            },
+            {
+                title: "Returns Database",
+                link: "returns.html",
+                thumbnail: "",
+                content: "Allow us to keep track of all product quality issues reported by customers. Automatically send details between the sales and production departments, to enable smooth communication and speedy resolutions.",
+                author: "Rich Webb",
+                date: "Apr 28, 2024",
+                tags: ["SharePoint Lists", "Power Automate"]
+            },
+            {
+                title: "Purchase Order System",
+                link: "purchase_orders.html",
+                thumbnail: "",
+                content: "Bulid a system to keep track of purchase orders, mark them as recieved and send consistant data to accounts for payment",
+                author: "Rich Webb",
+                date: "Apr 28, 2024",
+                tags: ["SharePoint Lists", "Power Automate"]
+            }
+        ];
+
+        // Function to generate article cards
+        function generateArticleCards() {
+            const container = document.getElementById("article-container");
+
+            articles.forEach(article => {
+                const card = document.createElement("article");
+                card.classList.add("article-card");
+
+                card.innerHTML = `
             <div class="article-thumbnail-wrap">
-                <a href="brewing_app.html">
-                    <img src="" class="article-thumbnail" alt="Article Thumbnail">
+                <a href="${article.link}">
+                    <img src="${article.thumbnail}" class="article-thumbnail" alt="Article Thumbnail">
                 </a>
             </div>
+            <h2><a href="${article.link}">${article.title}</a></h2>
             <div class="article-content">
                 <div class="card-content">
-                    <p>Make an app that tracks the ingredients used during the Brewing Experience and give the customer live
-                        feedback on the beers colour, bitterness and fermentability</p>
+                    <p>${article.content}</p>
                 </div>
                 <div class="author-row">
-                    <a href="index.html" aria-label="Rich Webb">
-                        <img src="rich_webb_profile.jpg" class="author-avatar" alt="Rich Webb">
+                    <a href="index.html" aria-label="${article.author}">
+                        <img src="rich_webb_profile.jpg" class="author-avatar" alt="${article.author}">
                     </a>
                     <div class="author-info">
-                        <a class="author-name" href="index.html">Rich Webb</a>
-                        <time datetime="2024-04-28">Apr 28, 2024</time>
+                        <a class="author-name" href="index.html">${article.author}</a>
+                        <time datetime="${article.date}">${article.date}</time>
                     </div>
-                    <div class="tags">
-                        <a href="brewing_app.html" rel="tag">Power Apps</a>
-                        <a href="brewing_app.html" rel="tag">SharePoint Lists</a>
-                        <a href="brewing_app.html" rel="tag">Power Automate</a>
-                    </div>
-                    </header>
+                </div>
+                <div class="tags">
+                    ${article.tags.map(tag => `<a href="${article.link}" rel="tag">${tag}</a>`).join("")}
                 </div>
             </div>
-        </article>
+        `;
+
+                container.appendChild(card);
+            });
+        }
+
+        // Call the function to generate article cards
+        generateArticleCards();
 
 
-        <!--Power Bi Reporting-->
-        <article class="article-card">
-            <h2>
-                <a href="reports.html">Purchase Order System</a>
-            </h2>
-            <div class="article-thumbnail-wrap">
-                <a href="reports.html">
-                    <img src="" class="article-thumbnail" alt="Article Thumbnail">
-                </a>
-            </div>
-            <div class="article-content">
-                <div class="card-content">
-                    <p>Bulid a system to keep track of purchase orders, mark them as recieved and send consistant data to
-                        accounts for payment</p>
-                </div>
-                <div class="author-row">
-                    <a href="index.html" aria-label="Rich Webb">
-                        <img src="rich_webb_profile.jpg" class="author-avatar" alt="Rich Webb">
-                    </a>
-                    <div class="author-info">
-                        <a class="author-name" href="index.html">Rich Webb</a>
-                        <time datetime="2024-04-28">Apr 28, 2024</time>
-                    </div>
-                    <div class="tags">
-                        <a href="reports.html" rel="tag">Power Bi</a>
-                    </div>
-                    </header>
-                </div>
-            </div>
-        </article>
-
-        <!--Purchase Ordering System-->
-        <article class="article-card">
-            <h2>
-                <a href="purchase_orders.html">Purchase Order System</a>
-            </h2>
-            <div class="article-thumbnail-wrap">
-                <a href="purchase_orders.html">
-                    <img src="" class="article-thumbnail" alt="Article Thumbnail">
-                </a>
-            </div>
-            <div class="article-content">
-                <div class="card-content">
-                    <p>Bulid a system to keep track of purchase orders, mark them as recieved and send consistant data to
-                        accounts for payment</p>
-                </div>
-                <div class="author-row">
-                    <a href="index.html" aria-label="Rich Webb">
-                        <img src="rich_webb_profile.jpg" class="author-avatar" alt="Rich Webb">
-                    </a>
-                    <div class="author-info">
-                        <a class="author-name" href="index.html">Rich Webb</a>
-                        <time datetime="2024-04-28">Apr 28, 2024</time>
-                    </div>
-                    <div class="tags">
-                        <a href="purchase_orders.html" rel="tag">SharePoint Lists</a>
-                        <a href="purchase_orders.html" rel="tag">Power Automate</a>
-                    </div>
-                    </header>
-                </div>
-            </div>
-        </article>
-
-        <!--Product Quality Logging and Testing-->
-        <article class="article-card">
-            <h2>
-                <a href="returns.html">Returns Database</a>
-            </h2>
-            <div class="article-thumbnail-wrap">
-                <a href="returns.html">
-                    <img src="" class="article-thumbnail" alt="Article Thumbnail">
-                </a>
-            </div>
-            <div class="article-content">
-                <div class="card-content">
-                    <p>Allow us to keep track of all product quality issues reported by customers.
-                        Automatically send details between the sales and production departments, to enable smooth
-                        communication and speedy resolutions.</p>
-                </div>
-                <div class="author-row">
-                    <a href="index.html" aria-label="Rich Webb">
-                        <img src="rich_webb_profile.jpg" class="author-avatar" alt="Rich Webb">
-                    </a>
-                    <div class="author-info">
-                        <a class="author-name" href="index.html">Rich Webb</a>
-                        <time datetime="2024-04-28">Apr 28, 2024</time>
-                    </div>
-                    <div class="tags">
-                        <a href="returns.html" rel="tag">SharePoint Lists</a>
-                        <a href="returns.html" rel="tag">Power Automate</a>
-                    </div>
-                    </header>
-                </div>
-            </div>
-        </article>
-
-        <!--New Product Delevopment-->
-        <article class="article-card">
-            <h2>
-                <a href="new_product_development.html">New Product Development</a>
-            </h2>
-            <div class="article-thumbnail-wrap">
-                <a href="new_product_development.html">
-                    <img src="" class="article-thumbnail" alt="Article Thumbnail">
-                </a>
-            </div>
-            <div class="article-content">
-                <div class="card-content">
-                    <p>Code name: HOPSIGHT</p>
-                </div>
-                <div class="author-row">
-                    <a href="index.html" aria-label="Rich Webb">
-                        <img src="rich_webb_profile.jpg" class="author-avatar" alt="Rich Webb">
-                    </a>
-                    <div class="author-info">
-                        <a class="author-name" href="index.html">Rich Webb</a>
-                        <time datetime="2024-04-28">Apr 28, 2024</time>
-                    </div>
-                    <div class="tags">
-                        <a href="new_product_development.html" rel="tag">SharePoint Lists</a>
-                        <a href="new_product_development.html" rel="tag">Power Automate</a>
-                    </div>
-                    </header>
-                </div>
-            </div>
-        </article>
-
-        <article class="article-card">
-            <h2>
-                <a href="live_inventory_screens.html">Live Inventory Screens</a>
-            </h2>
-            <div class="article-thumbnail-wrap">
-                <a href="live_inventory_screens.html">
-                    <img src="stock_screen_cask.png" class="article-thumbnail" alt="Article Thumbnail">
-                </a>
-            </div>
-            <div class="article-content">
-                <div class="card-content">
-                    <p>Screens to display up to date inventory data</p>
-                </div>
-                <div class="author-row">
-                    <a href="index.html" aria-label="Rich Webb">
-                        <img src="rich_webb_profile.jpg" class="author-avatar" alt="Rich Webb">
-                    </a>
-                    <div class="author-info">
-                        <a class="author-name" href="index.html">Rich Webb</a>
-                        <time datetime="2024-04-28">Apr 28, 2024</time>
-                    </div>
-                    <div class="tags">
-                        <a href="live_inventory_screens.html" rel="tag">Python</a>
-                        <a href="live_inventory_screens.html" rel="tag">HTML</a>
-                        <a href="live_inventory_screens.html" rel="tag">SharePoint API</a>
-                        <a href="live_inventory_screens.html" rel="tag">Brewman API</a>
-                    </div>
-                    </header>
-                </div>
-            </div>
-        </article>
-
-        <article class="article-card">
-            <h2>
-                <a href="automated_prodution_reporting.html">Automated Production Reporting</a>
-            </h2>
-            <div class="article-thumbnail-wrap">
-                <a href="automated_prodution_reporting.html">
-                    <img src="oliver.png" class="article-thumbnail" alt="Article Thumbnail">
-                </a>
-            </div>
-            <div class="article-content">
-                <div class="card-content">
-                    <p>Codename: OLIVER</p>
-                </div>
-                <div class="author-row">
-                    <a href="index.html" aria-label="Rich Webb">
-                        <img src="rich_webb_profile.jpg" class="author-avatar" alt="Rich Webb">
-                    </a>
-                    <div class="author-info">
-                        <a class="author-name" href="index.html">Rich Webb</a>
-                        <time datetime="2024-04-28">Apr 28, 2024</time>
-                    </div>
-                    <div class="tags">
-                        <a href="live_inventory_screens.html" rel="tag">Python</a>
-                        <a href="live_inventory_screens.html" rel="tag">HTML</a>
-                        <a href="live_inventory_screens.html" rel="tag">SharePoint API</a>
-                        <a href="live_inventory_screens.html" rel="tag">Selenium</a>
-                        <a href="live_inventory_screens.html" rel="tag">Plotly</a>
-                    </div>
-                    </header>
-                </div>
-            </div>
-        </article>
-
-
-
-
-    </main>
-
-    <footer>
-        <p>&copy; 2024 Richard Webb</p>
-    </footer>
-</body>
+    </script>
 
 </html>
