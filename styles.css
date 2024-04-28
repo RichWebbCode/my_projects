@@ -244,6 +244,11 @@ h2 {
     margin-top: 2.5%;
 }
 
+h3 {
+    color:#f9f9f9;
+    text-shadow: #27212a;
+}
+
 .article-content {
     flex: 25%; /* Take up 25% of the card's height */
     padding: 20px;
@@ -320,4 +325,18 @@ time {
 .tags {
     margin-left: 2.5%;
     margin-top: 2.5%;
+}
+
+.side-by-side-images-container {
+    display: flex; /* Use flexbox to arrange the images */
+}
+
+.side-by-side-images {
+    width: 45%; /* Adjust the width of each image */
+    margin-right: 5%; /* Add a margin between the images */
+}
+
+/* To remove the margin from the last image */
+.side-by-side-images:last-child {
+    margin-right: 0;
 }
