@@ -287,6 +287,8 @@ h2 {
 
 .card-content p {
     margin-bottom: 10px;
+    margin-left: 2.5%;
+    margin-top: 2.5%;
 }
 
 .author-avatar {
@@ -310,9 +312,13 @@ time {
     align-items: center;
     margin-top: auto; /* Push author row and tags to the bottom */
     align-self: flex-end; /* Align to the bottom of the card */
+    margin-left: 2.5%;
+    margin-top: 2.5%;
 }
 
 .tags {
     flex: 5%; /* Take up 5% of the card's height */
     align-self: last baseline;
+    margin-left: 2.5%;
+    margin-top: 2.5%;
 }

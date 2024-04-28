@@ -53,7 +53,7 @@
                 title: "Brewing Experience Recipe Builder",
                 link: "brewing_app.html",
                 thumbnail: "recipe_app_malts.png",
-                content: "Make an app that tracks the ingredients used during the Brewing Experience and give the customer live feedback on the beers colour, bitterness and fermentability",
+                content: "Make an app that tracks the ingredients used during the Brewing Experience and give the customer live feedback on the beers colour, bitterness and fermentability. Built to replace pen and paper recipe recording and to communicate recipe building with customers who haven't brewed before.",
                 author: "Rich Webb",
                 date: "Apr 28, 2024",
                 tags: ["Power Apps", "SharePoint Lists", "Power Automate"]
@@ -120,7 +120,6 @@
                 </a>
             </div>
             <h2><a href="${article.link}">${article.title}</a></h2>
-            <div class="article-content">
                 <div class="card-content">
                     <p>${article.content}</p>
                 </div>
@@ -136,7 +135,6 @@
                 <div class="tags">
                     ${article.tags.map(tag => `<a href="${article.link}" rel="tag">${tag}</a>`).join("")}
                 </div>
-            </div>
         `;
 
                 container.appendChild(card);
