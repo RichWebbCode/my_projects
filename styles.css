@@ -15,6 +15,75 @@ header {
     width: 100%;
 }
 
+.header-link {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+
+.header-link img {
+    max-width: 100%; /* Ensure the image fits within the container */
+    height: auto; /* Maintain aspect ratio */
+    width: 15%;
+}
+
+.menu-btn {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 20px;
+    z-index: 2;
+    /* Ensure menu button is on top */
+    position: absolute;
+    /* Position relative to the banner */
+    left: 10px;
+    /* Adjust position to the left */
+}
+
+.menu-btn .line {
+    width: 30px;
+    height: 3px;
+    background-color: #fff;
+}
+
+#sidebar {
+    position: fixed;/* Fixed position */
+    top: 0;
+    left: -200px; /* Offscreen initially */
+    width: 200px;
+    height: 100%;
+    background-color: #333; /* Dark background color */
+    padding-top: 60px; /* Add space for the banner */
+    transition: left 0.3s ease; /* Add smooth transition */
+    z-index: 1000; /* Set a high z-index value */
+}
+
+#sidebar.active {
+    left: 0;
+    /* Move sidebar to show */
+    width: 25%;
+}
+
+#sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#sidebar ul li {
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+#sidebar ul li a:hover {
+    background-color: #555;
+}
+
 main {
     padding: 20px;
     padding-top: 50px; /* Add padding to make space for fixed-positioned titles */
@@ -76,24 +145,9 @@ footer {
 }
 
 .text-block {
-    flex: 1; /* Allow text block to take up remaining space */
-    
+    flex: 1; /* Allow text block to take up remaining space */    
 }
 
 .text-block p {
     margin: 0; /* Remove default margin */
 }
-
-.header-link {
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-}
-
-
-.header-link img {
-    max-width: 100%; /* Ensure the image fits within the container */
-    height: auto; /* Maintain aspect ratio */
-    width: 15%;
-}
-

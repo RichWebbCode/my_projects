@@ -9,25 +9,46 @@
 </head>
 
 <body>
-    <header>
+    <header class="header-link">
+        <div class="menu-btn" onclick="toggleMenu()">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
         <a href="index.html" class="header-link">
             <img src="website_logo.png" alt="Header Image">
         </a>
     </header>
-    
+
+    <nav id="sidebar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="new_product_development.html">New Product Development</a></li>
+            <li><a href="live_inventory_screens.html">Live Inventory Screens</a></li>
+            <li><a href="automated_prodution_reporting.html">Automated Reporting</a></li>
+        </ul>
+    </nav>
+
+    <script>
+        function toggleMenu() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+    </script>
 
     <main>
         <div class="project" id="project1">
             <h2>Live Inventory Screens</h2>
             <div class="project-description">
                 <p>Brief:</p>
-                <p>Create live inventory screens that will link into the stock management system and replace the manually written whiteboard.</p>
+                <p>Create live inventory screens that will link into the stock management system and replace the
+                    manually written whiteboard.</p>
                 <p>Code and Modules used:
                     Python, HTML, CSS, FastAPI, SharePoint API, Brewman API</p>
             </div>
-            <a href="live_inventory_screens.html">See the project</a>         
+            <a href="live_inventory_screens.html">See the project</a>
         </div>
-        
+
         <div class="project" id="project2">
             <h2>Automated Production Reporting</h2>
             <div class="project-description">
@@ -37,65 +58,69 @@
                 <p>Online Logs and Information Verifier for Efficient Reporting</p>
                 <p>Code and Modules Used: Python, HTML, CSS, Pandas, Selenium, SharePoint API, Numpy, Flask, Plotly</p>
             </div>
-            <a href="automated_prodution_reporting.html">See the project</a>  
+            <a href="automated_prodution_reporting.html">See the project</a>
         </div>
 
         <div class="project" id="project3">
             <h2>New Product Development System</h2>
             <div class="project-description">
                 <p>Brief:</p>
-                <p>Build a solution that will allow for tracking and communication of the products. Automatically sending relient inforamtion to each department.</p>
+                <p>Build a solution that will allow for tracking and communication of the products. Automatically
+                    sending relient inforamtion to each department.</p>
                 <p>Code Name: HOPSIGHT</p>
                 <p>Holistic Optimisation and Process Synchronisation for Improved Growth, Harmonisation, and Tasting</p>
                 <p>Bulit Using: SharePoint Lists, Power Automate</p>
             </div>
+            <a href="new_product_development.html">See the project</a>
+        </div>
+
+        <div class="project" id="project4">
+            <h2>Brewing Expierence Recipe Developer</h2>
+            <div class="project-description">
+                <p>Brief:</p>
+                <p>Make an app that tracks the ingredients used during the Brewing Experience and give the customer live
+                    feedback on the beers colour, bitterness and fermentability</p>
+                <p>Bulit Using: Power App, Power Automate</p>
+            </div>
             <!--<img src="oliver.png" alt="Project 2">-->
         </div>
-    
-    <div class="project" id="project4">
-        <h2>Brewing Expierence Recipe Developer</h2>
-        <div class="project-description">
-            <p>Brief:</p>
-            <p>Make an app that tracks the ingredients used during the Brewing Experience and give the customer live feedback on the beers colour, bitterness and fermentability</p>
-            <p>Bulit Using: Power App, Power Automate</p>
+
+        <div class="project" id="project5">
+            <h2>Power Bi Reporting</h2>
+            <div class="project-description">
+                <p>Brief:</p>
+                <p>Create a suite of reports for all aspects of the business</p>
+                <p>Bulit Using: Power Bi, Power Automate</p>
+            </div>
+            <!--<img src="oliver.png" alt="Project 2">-->
         </div>
-        <!--<img src="oliver.png" alt="Project 2">-->
-    </div>
 
-    <div class="project" id="project5">
-        <h2>Power Bi Reporting</h2>
-        <div class="project-description">
-            <p>Brief:</p>
-            <p>Create a suite of reports for all aspects of the business</p>
-            <p>Bulit Using: Power Bi, Power Automate</p>
+        <div class="project" id="project5">
+            <h2>Purchase Order System</h2>
+            <div class="project-description">
+                <p>Brief:</p>
+                <p>Bulid a system to keep track of purchase orders, mark them as recieved and send consistant data to
+                    accounts for payment</p>
+                <p>Bulit Using: SharePoint Lists, Power Automate</p>
+            </div>
+            <!--<img src="oliver.png" alt="Project 2">-->
         </div>
-        <!--<img src="oliver.png" alt="Project 2">-->
-    </div>
 
-    <div class="project" id="project5">
-        <h2>Purchase Order System</h2>
-        <div class="project-description">
-            <p>Brief:</p>
-            <p>Bulid a system to keep track of purchase orders, mark them as recieved and send consistant data to accounts for payment</p>
-            <p>Bulit Using: SharePoint Lists, Power Automate</p>
+        <div class="project" id="project5">
+            <h2>Returns Database</h2>
+            <div class="project-description">
+                <p>Brief:</p>
+                <p>Allow us to keep track of all product quality issues reported by customers.
+                    Automatically send details between the sales and production departments, to enable smooth
+                    communication and speedy resolutions. </p>
+                </p>
+                <p>Bulit Using: SharePoint Lists, Power Automate</p>
+            </div>
+            <!--<img src="oliver.png" alt="Project 2">-->
         </div>
-        <!--<img src="oliver.png" alt="Project 2">-->
-    </div>
-
-    <div class="project" id="project5">
-        <h2>Returns Database</h2>
-        <div class="project-description">
-            <p>Brief:</p>
-            <p>Allow us to keep track of all product quality issues reported by customers.
-                Automatically send details between the sales and production departments, to enable smooth communication and speedy resolutions. </p>
-            </p>
-            <p>Bulit Using: SharePoint Lists, Power Automate</p>
-        </div>
-        <!--<img src="oliver.png" alt="Project 2">-->
-    </div>
 
 
-</main>
+    </main>
 
     <footer>
         <p>&copy; 2024 Richard Webb</p>
