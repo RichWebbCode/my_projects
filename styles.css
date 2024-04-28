@@ -4,7 +4,8 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* To prevent horizontal scrolling */
+    overflow-x: hidden;
+    /* To prevent horizontal scrolling */
 }
 
 header {
@@ -18,14 +19,18 @@ header {
 
 .header-link {
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    justify-content: center;
+    /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
 }
 
 
 .header-link img {
-    max-width: 100%; /* Ensure the image fits within the container */
-    height: auto; /* Maintain aspect ratio */
+    max-width: 100%;
+    /* Ensure the image fits within the container */
+    height: auto;
+    /* Maintain aspect ratio */
     width: 15%;
 }
 
@@ -50,15 +55,21 @@ header {
 }
 
 #sidebar {
-    position: fixed;/* Fixed position */
+    position: fixed;
+    /* Fixed position */
     top: 0;
-    left: -200px; /* Offscreen initially */
+    left: -200px;
+    /* Offscreen initially */
     width: 200px;
     height: 100%;
-    background-color: #333; /* Dark background color */
-    padding-top: 60px; /* Add space for the banner */
-    transition: left 0.3s ease; /* Add smooth transition */
-    z-index: 1000; /* Set a high z-index value */
+    background-color: #333;
+    /* Dark background color */
+    padding-top: 60px;
+    /* Add space for the banner */
+    transition: left 0.3s ease;
+    /* Add smooth transition */
+    z-index: 1000;
+    /* Set a high z-index value */
 }
 
 #sidebar.active {
@@ -87,11 +98,13 @@ header {
 
 main {
     padding: 20px;
-    padding-top: 50px; /* Add padding to make space for fixed-positioned titles */
+    padding-top: 50px;
+    /* Add padding to make space for fixed-positioned titles */
 }
 
 .project {
-    margin-bottom: 40px; /* Increase margin to create space between projects */
+    margin-bottom: 40px;
+    /* Increase margin to create space between projects */
     position: relative;
     text-align: center;
 }
@@ -99,7 +112,8 @@ main {
 .project img {
     max-width: 100%;
     height: auto;
-    display: block; /* Ensure images don't exceed container width */
+    display: block;
+    /* Ensure images don't exceed container width */
 }
 
 .project-description {
@@ -110,7 +124,8 @@ main {
 
 .project-description h2 {
     margin-top: 0;
-    text-align: center; /* Center project titles */
+    text-align: center;
+    /* Center project titles */
 }
 
 footer {
@@ -124,41 +139,55 @@ footer {
 }
 
 .image-container {
-    display: flex; /* Use flexbox to align images horizontally */
-    justify-content: space-between; /* Add space between images */
-    flex-wrap: wrap; /* Allow images to wrap to the next line if necessary */
+    display: flex;
+    /* Use flexbox to align images horizontally */
+    justify-content: space-between;
+    /* Add space between images */
+    flex-wrap: wrap;
+    /* Allow images to wrap to the next line if necessary */
 }
 
 .image-container img {
-    max-width: calc(25% - 5px); /* Set maximum width for each image (25% of container width minus margin) */
-    height: auto; /* Maintain aspect ratio */
-    margin-bottom: 20px; /* Add margin between images */
+    max-width: calc(25% - 5px);
+    /* Set maximum width for each image (25% of container width minus margin) */
+    height: auto;
+    /* Maintain aspect ratio */
+    margin-bottom: 20px;
+    /* Add margin between images */
 }
 
 .image-with-text {
-    display: flex; /* Use flexbox to align image and text side by side */
-    margin-bottom: 20px; /* Add margin to separate sections */
+    display: flex;
+    /* Use flexbox to align image and text side by side */
+    margin-bottom: 20px;
+    /* Add margin to separate sections */
 }
 
 .image-with-text img {
-    max-width: 60%; /* Set maximum width for the image */
-    margin-right: 10%; /* Add margin between image and text block */
+    max-width: 60%;
+    /* Set maximum width for the image */
+    margin-right: 10%;
+    /* Add margin between image and text block */
 }
 
 .text-block {
-    flex: 1; /* Allow text block to take up remaining space */    
+    flex: 1;
+    /* Allow text block to take up remaining space */
 }
 
 .text-block p {
-    margin: 0; /* Remove default margin */
+    margin: 0;
+    /* Remove default margin */
 }
 
 .project-card {
     margin: 0 10px 10px 0;
     position: relative;
     text-align: center;
-    display: inline-flex; /* Use flexbox */
-    flex-direction: column; /* Stack items vertically */
+    display: inline-flex;
+    /* Use flexbox */
+    flex-direction: column;
+    /* Stack items vertically */
     width: calc(33.33% - 20px);
     box-sizing: border-box;
     border: 1px solid #ccc;
@@ -177,7 +206,8 @@ footer {
 
 .project-description {
     margin-bottom: 10px;
-    flex-grow: 1; /* Allow description to grow to fill available space */
+    flex-grow: 1;
+    /* Allow description to grow to fill available space */
 }
 
 /*.image-preview {
@@ -192,34 +222,54 @@ footer {
     z-index: 1;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.24);
-    display: inline-block; /* Change display to inline-block to allow multiple cards in a row */
-    width: 30%; /* Each card occupies 30% of screen width with 2.5% space on each side */
-    margin-right: 2.5%; /* Add space between cards */
-    margin-bottom: 2.5%; /* Add space below each card */
-    box-sizing: border-box; /* Include padding and border in width calculation */
+    display: inline-block;
+    /* Change display to inline-block to allow multiple cards in a row */
+    width: 30%;
+    /* Each card occupies 30% of screen width with 2.5% space on each side */
+    margin-right: 2.5%;
+    /* Add space between cards */
+    margin-bottom: 2.5%;
+    /* Add space below each card */
+    box-sizing: border-box;
+    /* Include padding and border in width calculation */
     height: 600px;
-    text-align: center;
+    /*text-align: center;*/
+}
+
+h2 {
+    flex: 20%; /* Take up 20% of the card's height */
+    margin: 0; /* Remove default margin */
+    margin-left: 2.5%;
+    margin-top: 2.5%;
 }
 
 .article-content {
-    flex-grow: 1; /* Allow content to grow to fill available space */
+    flex: 25%; /* Take up 25% of the card's height */
     padding: 20px;
+}
+
+.author-info {
+    flex: 10%; /* Take up 10% of the card's height */
+    margin-left: 5%;
 }
 
 @media screen and (max-width: 768px) {
     .article-card {
-        width: calc(100% - 5%); /* Change width to 100% on smaller screens */
-        margin-right: 0; /* Remove right margin on smaller screens */
+        width: calc(100% - 5%);
+        /* Change width to 100% on smaller screens */
+        margin-right: 0;
+        /* Remove right margin on smaller screens */
+        flex: 25%;
+        /* Take up 25% of the card's height */
+        padding: 20px;
     }
 }
 
 .article-thumbnail-wrap {
+    height: 40%;
     overflow: hidden;
-    width: 100%; /* Set width to 100% to ensure the thumbnail fills the entire width of the card */
-    height: 50%; /* Set height to 100% to ensure the thumbnail fills the entire height of the card */
-    display: flex; /* Use flexbox to center the thumbnail */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    flex: 40%;
+    /* Take up 40% of the card's height */
 }
 
 .article-thumbnail {
@@ -229,11 +279,6 @@ footer {
 
 .article-publication-meta {
     margin-bottom: 10px;
-}
-
-.tags {
-    margin-left: 5%;
-    margin-top: 10px; /* Add space between author info and tags */
 }
 
 .tags a {
@@ -249,20 +294,7 @@ footer {
     margin-right: 10px;
     width: 40px;
     height: 40px;
-    margin-left: 30%;
-}
-
-.author-info {
-    display: flex;
-    flex-direction: column;
-    margin-left: 5%; /* Push author info to the right */
-
-}
-
-.author-row {
-    display: flex;
-    align-items: center;
-    margin-top: auto; /* Push author row and tags to the bottom */
+    margin-left: 10%;
 }
 
 .author-name {
@@ -271,4 +303,16 @@ footer {
 
 time {
     font-style: italic;
+}
+
+.author-row {
+    display: flex;
+    align-items: center;
+    margin-top: auto; /* Push author row and tags to the bottom */
+    align-self: flex-end; /* Align to the bottom of the card */
+}
+
+.tags {
+    flex: 5%; /* Take up 5% of the card's height */
+    align-self: last baseline;
 }
