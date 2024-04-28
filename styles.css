@@ -233,7 +233,7 @@ footer {
     /* Add space below each card */
     box-sizing: border-box;
     /* Include padding and border in width calculation */
-    height: 600px;
+    height: 500px;
     /*text-align: center;*/
 }
 
