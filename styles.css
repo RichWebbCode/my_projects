@@ -151,3 +151,35 @@ footer {
 .text-block p {
     margin: 0; /* Remove default margin */
 }
+
+.project-card {
+    margin: 0 10px 10px 0;
+    position: relative;
+    text-align: center;
+    display: inline-flex; /* Use flexbox */
+    flex-direction: column; /* Stack items vertically */
+    width: calc(33.33% - 20px);
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+@media screen and (max-width: 768px) {
+    .project-card {
+        width: calc(100% - 20px);
+    }
+}
+
+.project-card h2 {
+    margin-top: 0;
+}
+
+.project-description {
+    margin-bottom: 10px;
+    flex-grow: 1; /* Allow description to grow to fill available space */
+}
+
+/*.image-preview {
+    /* Style your image preview here */
+/*}*/
+
