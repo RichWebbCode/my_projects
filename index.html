@@ -120,8 +120,8 @@
                 </a>
             </div>
             <h2><a href="${article.link}">${article.title}</a></h2>
-                <div class="card-content">
-                    <p>${article.content}</p>
+            <div class="tags">
+                    ${article.tags.map(tag => `<a href="${article.link}" rel="tag">${tag}</a>`).join("")}
                 </div>
                 <div class="author-row">
                     <a href="index.html" aria-label="${article.author}">
@@ -132,8 +132,8 @@
                         <time datetime="${article.date}">${article.date}</time>
                     </div>
                 </div>
-                <div class="tags">
-                    ${article.tags.map(tag => `<a href="${article.link}" rel="tag">${tag}</a>`).join("")}
+                <div class="card-content">
+                    <p>${article.content}</p>
                 </div>
         `;
 
