@@ -340,3 +340,55 @@ time {
 .side-by-side-images:last-child {
     margin-right: 0;
 }
+
+.section-with-text-and-image {
+    display: flex;
+    /* Use flexbox to create a flex container */
+}
+
+.text-on-left {
+    width: 50%;
+    /* Set the width of the text section */
+    padding: 20px;
+    /* Add padding for spacing */
+}
+
+.image-on-right {
+    width: 30%;
+    /* Set the width of the image section */
+    padding: 20px;
+    /* Add padding for spacing */
+    box-sizing: border-box;
+    /* Include padding and border in width calculation */
+}
+
+.image-on-right img {
+    width: 100%;
+    /* Ensure the image fills its container */
+}
+
+.section-with-image-and-text {
+    display: flex;
+    /* Use flexbox to create a flex container */
+}
+
+.image-on-left {
+    width: 30%;
+    /* Set the width of the image section */
+    padding: 20px;
+    /* Add padding for spacing */
+    box-sizing: border-box;
+    /* Include padding and border in width calculation */
+}
+
+.image-on-left img {
+    width: 100%;
+    /* Ensure the image fills its container */
+}
+
+.text-on-right {
+    width: 50%;
+    /* Set the width of the text section */
+    padding: 20px;
+    /* Add padding for spacing */
+}
