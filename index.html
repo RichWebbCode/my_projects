@@ -37,13 +37,133 @@
     </script>
 
     <body>
-        <main id="article-container"></main>
+
+        <section class="card-list">
+            <article class="card card-position">
+                <header class="card-header">
+                    <h2>Live Inventory Screens</h2>
+                </header>
+                <div class="article-thumbnail-wrap">
+                    <a href="live_inventory_screens.html">
+                        <img src="stock_screen_cask.png" class="article-thumbnail" alt="Article Thumbnail">
+                    </a>
+                </div>
+                <div class="tags">
+                    <a href="#">html</a>
+                    <a href="#">python</a>
+                    <a href="#">API</a>
+                    <a href="#">Fast API</a>
+                </div>
+                <div class="card-content">
+                    <p>Screens to display up to date inventory data</p>
+                </div>
+            </article>
+
+            <article class="card card-position">
+                <header class="card-header">
+                    <h2>Automated Production Reporting</h2>
+                </header>
+                <div class="article-thumbnail-wrap">
+                    <a href="automated_prodution_reporting.html">
+                        <img src="oliver.png" class="article-thumbnail" alt="Oliver">
+                    </a>
+                </div>
+                <div class="tags">
+                    <a href="#">html</a>
+                    <a href="#">python</a>
+                    <a href="#">Plotly</a>
+                    <a href="#">Selenium</a>
+                    <a href="#">API</a>
+                </div>
+                <div class="card-content">
+                    <p>Codename: OLIVER</p>
+                </div>
+            </article>
+
+            <article class="card card-position">
+                <header class="card-header">
+                    <h2>Brewing Experience Recipe Builder</h2>
+                </header>
+                <div class="article-thumbnail-wrap">
+                    <a href="brewing_app.html">
+                        <img src="recipe_app_malts.png" class="article-thumbnail" alt="Recipe App">
+                    </a>
+                </div>
+                <div class="tags">
+                    <a href="#">power apps</a>
+                    <a href="#">sharepoint lists</a>
+                    <a href="#">power automate</a>
+                </div>
+                <div class="card-content">
+                    <p>Make an app that tracks the ingredients used during the Brewing Experience and give the customer
+                        live feedback on the beers colour, bitterness and fermentability. Built to replace pen and paper
+                        recipe recording and to communicate recipe building with customers who haven't brewed before.
+                    </p>
+                </div>
+            </article>
+
+            <article class="card card-position">
+                <header class="card-header">
+                    <h2>Purchase Order System</h2>
+                </header>
+                <div class="article-thumbnail-wrap">
+                    <a href="purchase_orders.html">
+                        <img src="po_form.png" class="article-thumbnail" alt="Purchase Orders">
+                    </a>
+                </div>
+                <div class="tags">
+                    <a href="#">sharepoint list</a>
+                    <a href="#">power automate</a>
+                </div>
+                <div class="card-content">
+                    <p>Build a system to keep track of purchase orders, mark them as received and send consistent data
+                        to accounts for payment</p>
+                </div>
+            </article>
+
+            <article class="card card-position">
+                <header class="card-header">
+                    <h2>Returns Database</h2>
+                </header>
+                <div class="article-thumbnail-wrap">
+                    <a href="returns.html">
+                        <img src="" class="article-thumbnail" alt="Returns">
+                    </a>
+                </div>
+                <div class="tags">
+                    <a href="#">sharepoint lists</a>
+                    <a href="#">power automate</a>
+                </div>
+                <div class="card-content">
+                    <p>Allow us to keep track of all product quality issues reported by customers. Automatically send details between the sales and production departments, to enable smooth communication and speedy resolutions.</p>
+                </div>
+            </article>
+
+            <article class="card card-position">
+                <header class="card-header">
+                    <h2>New Product Development</h2>
+                </header>
+                <div class="article-thumbnail-wrap">
+                    <a href="new_product_development.html">
+                        <img src="" class="article-thumbnail" alt="New Product Development">
+                    </a>
+                </div>
+                <div class="tags">
+                    <a href="#">sharepoint lists</a>
+                    <a href="#">power automate</a>
+                </div>
+                <div class="card-content">
+                    <p>Code name: HOPSIGHT</p>
+                </div>
+            </article>
+        </section>
 
         <footer>
             <p>&copy; 2024 Richard Webb</p>
         </footer>
 
-        <script src="scripts.js"></script>
+<!--<main id="article-container"></main>
+        <script src="scripts.js"></script>-->
     </body>
 
     <script>
@@ -119,7 +239,9 @@
                     <img src="${article.thumbnail}" class="article-thumbnail" alt="Article Thumbnail">
                 </a>
             </div>
+            <header class="card-header">
             <h2><a href="${article.link}">${article.title}</a></h2>
+            </header>
             <div class="tags">
                     ${article.tags.map(tag => `<a href="${article.link}" rel="tag">${tag}</a>`).join("")}
                 </div>
