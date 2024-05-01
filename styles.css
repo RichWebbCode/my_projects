@@ -1,12 +1,11 @@
 /* styles.css */
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
     padding: 0;
-    overflow-x: hidden;
-    /* To prevent horizontal scrolling */
-    background-color: #27212a89;
+    margin: 0;
+    background-color: #17141d;
+    color: white;
+    font-family: 'DM Mono', monospace;
 }
 
 header {
@@ -16,6 +15,8 @@ header {
     text-align: center;
     padding: 10px 0;
     width: 100%;
+    top: 0;
+    left: 0;
 }
 
 .header-link {
@@ -98,7 +99,7 @@ header {
 }
 
 main {
-    padding: 20px;
+    padding: 10px;
     padding-top: 50px;
     /* Add padding to make space for fixed-positioned titles */
 }
@@ -136,8 +137,8 @@ footer {
     padding: 10px 20px; /* Add padding to the right */
     width: calc(100% - 40px); /* Subtract the total padding from the width */
     bottom: 0;
+    z-index: -1;
 }
-
 
 .image-container {
     display: flex;
@@ -210,10 +211,6 @@ footer {
     flex-grow: 1;
     /* Allow description to grow to fill available space */
 }
-
-/*.image-preview {
-    /* Style your image preview here */
-/*}*/
 
 .article-card {
     background: #fff;
@@ -322,11 +319,6 @@ time {
     margin-top: 2.5%;
 }
 
-.tags {
-    margin-left: 2.5%;
-    margin-top: 2.5%;
-}
-
 .side-by-side-images-container {
     display: flex; /* Use flexbox to arrange the images */
 }
@@ -393,31 +385,7 @@ time {
     /* Add padding for spacing */
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
-
-body {
-    padding: 0;
-    margin: 0;
-    background-color: #17141d;
-    color: white;
-    font-family: 'DM Mono', monospace;
-}
 
 a {
     text-decoration: none;
@@ -426,7 +394,6 @@ a {
 .card-list {
     display: flex;
     padding: 3rem;
-    overflow-x: auto;
 }
 
 .card {
@@ -439,10 +406,40 @@ a {
     box-shadow: -1rem 0 3rem #000;
     transition: .2s;
     margin-right: 1rem;
+    position: relative;
 }
 
 .card:hover {
     transform: translateY(-1rem);
+    z-index: 1; /* Bring the hovered card to the front */
+}
+
+.tags {
+    margin: 1rem 0 2rem;
+    padding: .5rem 0 1rem;
+    line-height: 2;
+    margin-bottom: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    position: absolute; /* Position tags relative to the card */
+    bottom: 0; /* Align tags to the bottom of the card */
+    left: 25%; /* Move tags to the horizontal center of the card */
+    transform: translateX(-25%); /* Adjust for centering */
+}
+
+/* Media query for mobile devices */
+@media screen and (min-width: 769px) {
+    .tags {
+        white-space: nowrap; /* Prevent tags from breaking between lines */
+    }
+}
+
+/* Media query for mobile devices */
+@media screen and (max-width: 768px) {
+    .tags {
+        height: 60px; /* Adjust the height as needed */
+    }
 }
 
 .card:not(:first-child) {
