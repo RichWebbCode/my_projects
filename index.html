@@ -34,10 +34,18 @@
             var sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
         }
+
+        // Function to close menu when clicking outside of it
+        document.addEventListener('click', function (event) {
+            var sidebar = document.getElementById('sidebar');
+            var menuBtn = document.querySelector('.menu-btn');
+            if (!sidebar.contains(event.target) && !menuBtn.contains(event.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
     </script>
 
     <body>
-
         <section class="card-list">
             <article class="card card-position">
                 <header class="card-header">
@@ -165,112 +173,6 @@
         <footer>
             <p>&copy; 2024 Richard Webb</p>
         </footer>
-
-        <!--<main id="article-container"></main>
-        <script src="scripts.js"></script>-->
     </body>
-
-    <script>
-        // Define data for each article
-        const articles = [
-            {
-                title: "Live Inventory Screens",
-                link: "live_inventory_screens.html",
-                thumbnail: "stock_screen_cask.png",
-                content: "Screens to display up to date inventory data",
-                author: "Rich Webb",
-                date: "Apr 28, 2024",
-                tags: ["Python", "HTML", "SharePoint API", "Brewman API"]
-            },
-            {
-                title: "Automated Production Reporting",
-                link: "automated_prodution_reporting.html",
-                thumbnail: "oliver.png",
-                content: "Codename: OLIVER",
-                author: "Rich Webb",
-                date: "Apr 28, 2024",
-                tags: ["Python", "HTML", "SharePoint API", "Selenium", "Plotly"]
-            },
-            {
-                title: "Brewing Experience Recipe Builder",
-                link: "brewing_app.html",
-                thumbnail: "recipe_app_malts.png",
-                content: "Make an app that tracks the ingredients used during the Brewing Experience and give the customer live feedback on the beers colour, bitterness and fermentability. Built to replace pen and paper recipe recording and to communicate recipe building with customers who haven't brewed before.",
-                author: "Rich Webb",
-                date: "Apr 28, 2024",
-                tags: ["Power Apps", "SharePoint Lists", "Power Automate"]
-            },
-            {
-                title: "Purchase Order System",
-                link: "reports.html",
-                thumbnail: "po_form.png",
-                content: "Build a system to keep track of purchase orders, mark them as received and send consistent data to accounts for payment",
-                author: "Rich Webb",
-                date: "Apr 28, 2024",
-                tags: ["SharePoint Lists", "Power Automate"]
-            },
-            {
-                title: "New Product Development",
-                link: "live_inventory_screens.html",
-                thumbnail: "hopsight.png",
-                content: "Code name: HOPSIGHT",
-                author: "Rich Webb",
-                date: "Apr 28, 2024",
-                tags: ["SharePoint Lists", "Power Automate"]
-            },
-            {
-                title: "Returns Database",
-                link: "returns.html",
-                thumbnail: "",
-                content: "Allow us to keep track of all product quality issues reported by customers. Automatically send details between the sales and production departments, to enable smooth communication and speedy resolutions.",
-                author: "Rich Webb",
-                date: "Apr 28, 2024",
-                tags: ["SharePoint Lists", "Power Automate"]
-            }
-        ];
-
-        // Function to generate article cards
-        function generateArticleCards() {
-            const container = document.getElementById("article-container");
-
-            articles.forEach(article => {
-                const card = document.createElement("article");
-                card.classList.add("article-card");
-
-                card.innerHTML = `
-            <div class="article-thumbnail-wrap">
-                <a href="${article.link}">
-                    <img src="${article.thumbnail}" class="article-thumbnail" alt="Article Thumbnail">
-                </a>
-            </div>
-            <header class="card-header">
-            <h2><a href="${article.link}">${article.title}</a></h2>
-            </header>
-            <div class="tags">
-                    ${article.tags.map(tag => `<a href="${article.link}" rel="tag">${tag}</a>`).join("")}
-                </div>
-                <div class="author-row">
-                    <a href="index.html" aria-label="${article.author}">
-                        <img src="rich_webb_profile.jpg" class="author-avatar" alt="${article.author}">
-                    </a>
-                    <div class="author-info">
-                        <a class="author-name" href="index.html">${article.author}</a>
-                        <time datetime="${article.date}">${article.date}</time>
-                    </div>
-                </div>
-                <div class="card-content">
-                    <p>${article.content}</p>
-                </div>
-        `;
-
-                container.appendChild(card);
-            });
-        }
-
-        // Call the function to generate article cards
-        generateArticleCards();
-
-
-    </script>
 
 </html>

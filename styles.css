@@ -119,7 +119,7 @@ main {
 }
 
 .project-description {
-    background-color: #f9f9f9;
+    background-color: #17141d;
     padding: 15px;
     border-radius: 5px;
 }
@@ -335,11 +335,12 @@ time {
 
 .section-with-text-and-image {
     display: flex;
+    width: 100%;
     /* Use flexbox to create a flex container */
 }
 
 .text-on-left {
-    width: 50%;
+    width: 60%;
     /* Set the width of the text section */
     padding: 20px;
     /* Add padding for spacing */
@@ -379,7 +380,7 @@ time {
 }
 
 .text-on-right {
-    width: 50%;
+    width: 60%;
     /* Set the width of the text section */
     padding: 20px;
     /* Add padding for spacing */
