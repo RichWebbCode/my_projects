@@ -429,12 +429,6 @@ a {
     transform: translateX(-25%); /* Adjust for centering */
 }
 
-/* Media query for mobile devices */
-@media screen and (min-width: 769px) {
-    .tags {
-        white-space: nowrap; /* Prevent tags from breaking between lines */
-    }
-}
 
 /* Media query for mobile devices */
 @media screen and (max-width: 768px) {
