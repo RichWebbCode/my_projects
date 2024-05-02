@@ -73,12 +73,19 @@ header {
     z-index: 1000;
     /* Set a high z-index value */
     text-align: center;
+    font-size: 20px;
 }
 
 #sidebar.active {
     left: 0;
     /* Move sidebar to show */
     width: 25%;
+}
+
+@media screen and (max-width: 768px) {
+    #sidebar.active {
+        width: 45%;
+    }
 }
 
 #sidebar ul {
@@ -96,10 +103,9 @@ header {
 }
 
 #sidebar ul li a:hover {
-    /*background-color: #555;*/
     color: #ccc;
     font-size: larger;
-    transition:0.5s;
+    transition: color .5s ease-out;
     font-weight: bolder;
 }
 
@@ -299,6 +305,7 @@ h3 {
     margin-top: 2.5%;
     text-decoration: none;
     color: #ccc;
+    /*text-align: center;*/
 }
 
 .author-avatar {
