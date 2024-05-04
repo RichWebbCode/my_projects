@@ -23,9 +23,13 @@
     <nav id="sidebar">
         <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="new_product_development.html">New Product Development</a></li>
+            <li><a href="new_product_development.html">HOPSIGHT</a></li>
+            <li><a href="reports.html">OLIVER</a></li>
             <li><a href="live_inventory_screens.html">Live Inventory Screens</a></li>
             <li><a href="automated_prodution_reporting.html">Automated Reporting</a></li>
+            <li><a href="brewing_app.html">Recipe Building App</a></li>
+            <li><a href="purchase_orders.html">Purchase Orders</a></li>
+            <li><a href="returns.html">Product Quality Issue Database</a></li>
         </ul>
     </nav>
 
@@ -46,8 +50,36 @@
                 <p>Code Name: HOPSIGHT</p>
                 <p>Holistic Optimisation and Process Synchronisation for Improved Growth, Harmonisation, and Tasting</p>
                 <p>Bulit Using: SharePoint Lists, Power Automate</p>
+                <p>In any business that regularly creates new products, communication is key. From conception to sales
+                    can be a bumpy journey. The more information each member of the team have, the better they can
+                    prepare.</p>
+                <p>Starting with a SharePoint list, I made sections for Conception, Trail Batch, Brewing,
+                    Automated SKU generation, barcode logging, Mareketing, Retail and De-listing</p>
+                <p>Each section has records with information that is passed on to the next person/department, in order
+                    to plan their tasks and prepare for the new beer</p>
+                <p>To allow each entry in HOPSIGHT to contain as much data as possible without changing the way anyone
+                    performs the role.
+                    I included field with URL links. This can be used to link to a SharePoint file or folder.</p>
+                <p>It also sends an email to every memeber of the team if a launch event is planned. It tells them the
+                    venue, time and date. The goal is to get for of the team to events to create a more social
+                    workplace.</p>
+                <p>To pass the information on automatically, I added in tick boxes to flag to Power Automate that
+                    it's time to send an email. This was the simpliest way ang gave the user control over when they were
+                    ready to send out their data.</p>
+                <p>Building a flow in Power Automate was relativley simple. I connected a condition to each email that
+                    is sent,
+                    which checks if the required data has been filled out and if the next stage box has been ticked. The
+                    email
+                    that is sent contains all the data the next person/department in the chain along with a link to the
+                    product in
+                    HOPSIGHT.</p>
+                <p>Once a product has lived its life and the decsion comes to no longer make it, a De-list box is
+                    ticked. This serves the
+                    duel function to make sure no flow is triggered in Power Automate and to filter down the main list.
+                    When HOPSIGHT loads, rather than seeing a list of 100's of beers, this narrows down the list to the beers 
+                    currently in production. </p>
             </div>
-            <!--<img src="oliver.png" alt="Project 2">-->
+            <img src="hopsight.png" alt="HOPSIGHT">
         </div>
     </main>
 
