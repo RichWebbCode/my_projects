@@ -50,33 +50,56 @@
         </div>
         <div class="section-with-text-and-image">
             <div class="text-on-left">
-                <p>When you work in a brewery, you quickly realise a lot of time is gobbled up finding data, filling out reports, and figuring out what's working well and how to keep the good vibes flowing.</p>
-                <p>Every week, I watched our brewing team glued to their screens, wading through paper to gather the info they needed to plug into spreadsheets and churn out reports. So, I decided to wave my magic wand and build an automation tool to get them off their chairs and back to crafting our amazing beer.</p>
-                <p>Step one: ditch as much of the paper reporting as possible and get the info entered into Brewman, our trusty brewery management software.</p>
-                <p>Next up, I needed to extract the data from Brewman. An API would have been a dream, but alas, Brewman didn't have one for the production side. They had an API for sales data to sync with accounting software. After chatting with Premier Systems, the brains behind Brewman, they showed interest in building a production API but said it would take a while.</p>
-                <p>The only option left was to roll up my sleeves and build an automation and web scraping tool to fetch the data.</p>
-                <p>After a pow-wow with our Production Manager, I had a laundry list of pages to gather the data from. Thankfully, most of the data could be exported into a CSV file.</p>
+                <p>When you work in a brewery, you quickly realise a lot of time is gobbled up finding data, filling out
+                    reports, and figuring out what's working well and how to keep the good vibes flowing.</p>
+                <p>Every week, I watched our brewing team glued to their screens, wading through paper to gather the
+                    info they needed to plug into spreadsheets and churn out reports. So, I decided to wave my magic
+                    wand and build an automation tool to get them off their chairs and back to crafting our amazing
+                    beer.</p>
+                <p>Step one: ditch as much of the paper reporting as possible and get the info entered into Brewman, our
+                    trusty brewery management software.</p>
+                <p>Next up, I needed to extract the data from Brewman. An API would have been a dream, but alas, Brewman
+                    didn't have one for the production side. They had an API for sales data to sync with accounting
+                    software. After chatting with Premier Systems, the brains behind Brewman, they showed interest in
+                    building a production API but said it would take a while.</p>
+                <p>The only option left was to roll up my sleeves and build an automation and web scraping tool to fetch
+                    the data.</p>
+                <p>After a pow-wow with our Production Manager, I had a laundry list of pages to gather the data from.
+                    Thankfully, most of the data could be exported into a CSV file.</p>
             </div>
             <div class="image-on-right">
                 <img src="" alt="">
             </div>
         </div>
-        
+
         <div class="section-with-image-and-text">
             <div class="image-on-left">
                 <img src="" alt="">
             </div>
             <div class="text-on-right">
-                <p>So, I dived into Python and used the Selenium module to take control of a Chrome browser. I got it to navigate to Brewman and log in using my credentials. Planning ahead, I saved my login details in a separate JSON file, just in case anyone peeked at my code.</p>
-                <p>Once I nailed the login, I ran into my first snag. Our Brewman package only allows 15 concurrent users. With the sales team entering orders, drivers logging deliveries, and brewers posting data, this limit fills up fast. When it hits 15 users, a pop-up asks you to boot someone out. You select from a list of logged-in users and see how long they've been inactive. Our golden rule: never log out a driver since they're often inactive between drops. I needed to build logic to pick the longest inactive user who wasn't a driver. With drivers changing weekly, I decided to put this on hold and manually handle logins if OLIVER flagged an error.</p>
+                <p>So, I dived into Python and used the Selenium module to take control of a Chrome browser. I got it to
+                    navigate to Brewman and log in using my credentials. Planning ahead, I saved my login details in a
+                    separate JSON file, just in case anyone peeked at my code.</p>
+                <p>Once I nailed the login, I ran into my first snag. Our Brewman package only allows 15 concurrent
+                    users. With the sales team entering orders, drivers logging deliveries, and brewers posting data,
+                    this limit fills up fast. When it hits 15 users, a pop-up asks you to boot someone out. You select
+                    from a list of logged-in users and see how long they've been inactive. Our golden rule: never log
+                    out a driver since they're often inactive between drops. I needed to build logic to pick the longest
+                    inactive user who wasn't a driver. Multiple users can change roles and help with deliveries, I
+                    decided to put this on hold and manually handle logins if OLIVER flagged an error.</p>
             </div>
         </div>
-        
+
         <div class="section-with-text-and-image">
             <div class="text-on-left">
-                <p>Keeping tabs on what OLIVER was doing got tricky. One misstep and the whole thing would topple. One wrong automated click, and nothing worked.</p>
-                <p>I used a ton of print statements to track what was happening. This let me see where my script logic failed, and boy, did it fail often in the beginning.</p>
-                <p>Tracking all those print statements became a nightmare, so I wrote a nifty function in Python to add colours, timestamps, and line numbers to each print statement. This was a game changer. It may be my dyslexia, scotopic sensitivity, or just that reading line after line of plain text is tough on the eyes, but this colourful solution made it super easy to see what was happening and where.</p>
+                <p>Keeping tabs on what OLIVER was doing got tricky. One misstep and the whole thing would topple. One
+                    wrong automated click, and nothing worked.</p>
+                <p>I used a ton of print statements to track what was happening. This let me see where my script logic
+                    failed, and boy, did it fail often in the beginning.</p>
+                <p>Tracking all those print statements became a nightmare, so I wrote a nifty function in Python to add
+                    colours, timestamps, and line numbers to each print statement. This was a game changer. It may be my
+                    dyslexia, scotopic sensitivity, or just that reading line after line of plain text is tough on the
+                    eyes, but this colourful solution made it super easy to see what was happening and where.</p>
                 <p>Here's my little code gem:</p>
                 <pre><code class="language-python">
                 ### Print Statement Decorator
@@ -107,49 +130,74 @@
                 # Initialize color_index attribute
                 print_t.color_index = 0
                 </code></pre>
-                <p>Use the 'print_t' function with your print statement, and voilà, you'll have a rainbow of colourful, timestamped print statements noting the line number.</p>
+                <p>Use the 'print_t' function with your print statement, and voilà, you'll have a rainbow of colourful,
+                    timestamped print statements noting the line number.</p>
             </div>
             <div class="image-on-right">
                 <img src="" alt="">
             </div>
         </div>
-        
+
         <div class="section-with-text-and-image">
             <div class="image-on-left">
                 <img src="" alt="">
             </div>
             <div class="text-on-right">
-                <p>Once I logged in and could track the print statements, I realised OLIVER didn't need complex instructions on where to click. I could just give OLIVER a list of URLs to navigate straight to the right pages.</p>
-                <p>I could get most data about how much beer was brewed from an export in the reporting section. The reports run in Tableau, embedded in Brewman. I needed OLIVER to change screen levels to select export options. I chose to export the data in its loaded format. My concern was the report structure could change, forcing me to constantly update the automation paths. I loved building OLIVER, but I didn't want to keep updating HTML paths.</p>
-                <p>Once exported, the report landed in the download directory. I then saved it to a SharePoint site using the Microsoft Graph API.</p>
-                <p>This was fine for the first upload, but for weekly updates, I needed only the new data. I instructed OLIVER to find the last file uploaded to SharePoint, log the latest date in that file, open the downloaded file, delete old data, and save the updated file in SharePoint.</p>
-                <p>I repeated these steps for another report and scraped data from other pages, saving all the data in a single CSV file accessible from SharePoint. It may seem odd to use a CSV file, but I wanted the source data accessible to anyone without coding knowledge. This way, if I'm on holiday and something goes wrong, anyone can access the data without calling me.</p>
+                <p>Once I logged in and could track the print statements, I realised OLIVER didn't need complex
+                    instructions on where to click. I could just give OLIVER a list of URLs to navigate straight to the
+                    right pages.</p>
+                <p>I could get most data about how much beer was brewed from an export in the reporting section. The
+                    reports run in Tableau, embedded in Brewman. I needed OLIVER to change screen levels to select
+                    export options. I chose to export the data in its loaded format. My concern was the report structure
+                    could change, forcing me to constantly update the automation paths. I loved building OLIVER, but I
+                    didn't want to keep updating HTML paths.</p>
+                <p>Once exported, the report landed in the download directory. I then saved it to a SharePoint site
+                    using the Microsoft Graph API.</p>
+                <p>This was fine for the first upload, but for weekly updates, I needed only the new data. I instructed
+                    OLIVER to find the last file uploaded to SharePoint, log the latest date in that file, open the
+                    downloaded file, delete old data, and save the updated file in SharePoint.</p>
+                <p>I repeated these steps for another report and scraped data from other pages, saving all the data in a
+                    single CSV file accessible from SharePoint. It may seem odd to use a CSV file, but I wanted the
+                    source data accessible to anyone without coding knowledge. This way, if I'm on holiday and something
+                    goes wrong, anyone can access the data without calling me.</p>
             </div>
         </div>
-        
+
         <div class="section-with-text-and-image">
             <div class="text-on-left">
-                <p>With all the data gathered, I needed to display it. The plan was to put up screens where the production team could see them, so they didn't have to hunt for info; it would be there, ready to consume.</p>
-                <p>I started building a web app using Flask. It fetched data from my main CSV file and displayed it using Plotly for graphs and CSS for data cards.</p>
-                <p>Once everything was displayed, I set up an automatic updater for OLIVER to run each Monday and timestamp the run in a JSON file. If more than 8 days had passed since the last run, OLIVER would update. This accounted for holidays like Christmas. When the app booted up, it would check and update if needed.</p>
-                <p>I then used auto-py-to-exe to convert my script into a standalone app for any machine needing the data.</p>
+                <p>With all the data gathered, I needed to display it. The plan was to put up screens where the
+                    production team could see them, so they didn't have to hunt for info; it would be there, ready to
+                    consume.</p>
+                <p>I started building a web app using Flask. It fetched data from my main CSV file and displayed it
+                    using Plotly for graphs and CSS for data cards.</p>
+                <p>Once everything was displayed, I set up an automatic updater for OLIVER to run each Monday and
+                    timestamp the run in a JSON file. If more than 8 days had passed since the last run, OLIVER would
+                    update. This accounted for holidays like Christmas. When the app booted up, it would check and
+                    update if needed.</p>
+                <p>I then used auto-py-to-exe to convert my script into a standalone app for any machine needing the
+                    data.</p>
             </div>
             <div class="image-on-right">
                 <img src="" alt="">
             </div>
         </div>
-        
+
         <div class="section-with-text-and-image">
             <div class="image-on-left">
                 <img src="" alt="">
             </div>
             <div class="text-on-right">
-                <p>Everything was looking peachy, and I was ready to deploy OLIVER across various machines. Then, the inevitable happened. Brewman updated their program, changing the report structure and making my reports obsolete.</p>
-                <p>All wasn't lost. Since the main data for the app came from a CSV file, the brewers could still manually update the data, and the app would display it nicely for everyone.</p>
-                <p>I decided not to rebuild OLIVER for the new report structure and instead wait for the promised Production API.</p>
-                <p>For now, OLIVER is retired, and I eagerly await starting work on SON OF OLIVER—Second Optimised Notation of Online Logs Information Verifier for Efficient Reporting. Stay tuned!</p>
+                <p>Everything was looking peachy, and I was ready to deploy OLIVER across various machines. Then, the
+                    inevitable happened. Brewman updated their program, changing the report structure and making my
+                    reports obsolete.</p>
+                <p>All wasn't lost. Since the main data for the app came from a CSV file, the brewers could still
+                    manually update the data, and the app would display it nicely for everyone.</p>
+                <p>I decided not to rebuild OLIVER for the new report structure and instead wait for the promised
+                    Production API.</p>
+                <p>For now, OLIVER is retired, and I eagerly await starting work on SON OF OLIVER—Second Optimised
+                    Notation of Online Logs Information Verifier for Efficient Reporting. Stay tuned!</p>
             </div>
-        </div>        
+        </div>
 
     </main>
 
