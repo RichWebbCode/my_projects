@@ -65,29 +65,28 @@
                 <img src="" alt="">
             </div>
             <div class="text-on-right">
-                <p>Our sales team sits opposite a board with a list of products to sell. Each week, our Head Brewer
-                    would complete a stock take and write the list of available stock on the board. Not only is this
-                    extremely time-consuming, but it also meant the sales team only got a clear picture of what they had
-                    to sell once a week.</p>
-                <p>It seemed obvious to me to use our brewery management software, called Brewman, as a list of products
-                    in stock. I found out the reason they didn't do that already was that Brewman doesn't take a product
-                    out of stock until it has been received by the customer. This is great for when stock is returned.
-                    It's not marked as sold until it is actually sold and in the customer's hands.</p>
-                <p>This required a bit of problem-solving. I was asked to look at the API and come up with a solution to
-                    get a live inventory list in front of our sales team.</p>
+                <p>Picture this: our sales team staring at a board with a list of products to sell, like it's the 1980s.
+                    Every week, our Head Brewer would complete a stock take and scribble the list of available stock on
+                    the board. Not only is this a colossal time drain, but it also meant the sales team only got the
+                    lowdown on what they had to sell once a week.</p>
+                <p>I thought, "Why not use our brewery management software, Brewman, to keep track of stock?" Turns out,
+                    Brewman doesn't take a product out of stock until it's received by the customer. This is fantastic
+                    for managing returns since stock isn't marked as sold until it's actually in the customer's hands.
+                </p>
+                <p>This called for some problem-solving wizardry. I was tasked with diving into the API to whip up a
+                    solution that would give our sales team a live inventory list.</p>
             </div>
         </div>
 
         <div class="section-with-text-and-image">
             <div class="text-on-left">
-                <p>This would be the first project where I had to write my own code from scratch.</p>
-                <p>It was a very daunting task. I hadn't coded since I was 8 years old, writing knock-knock jokes in
-                    BASIC on my grandad's computer.</p>
-                <p>I set to work looking into the API and eventually figured out how to return the data using a Python
-                    script. Luckily for me, a new tool called ChatGPT had just released its Beta online. In the early
-                    days, that was so helpful. I could ask the simplest of coding questions over and over until I had a
-                    limited understanding of what to do.</p>
-                <p>So, I set to work coding my first project.</p>
+                <p>This was my first project where I had to write my own code from scratch. Gulp.</p>
+                <p>It was daunting, to say the least. The last time I coded, I was 8 years old, writing knock-knock
+                    jokes in BASIC on my grandad's ancient computer.</p>
+                <p>I dug into the API and eventually figured out how to fetch the data using a Python script. Just in
+                    time, a new tool called ChatGPT released its Beta online. Early days with ChatGPT were a lifesaver!
+                    I could ask the simplest coding questions repeatedly until I finally understood what to do.</p>
+                <p>So, I rolled up my sleeves and got to work on my first coding project.</p>
             </div>
             <div class="image-on-right">
                 <img src="" alt="">
@@ -99,41 +98,39 @@
                 <img src="" alt="">
             </div>
             <div class="text-on-right">
-                <p>I started writing some pretty sloppy code. Looking back on the first iteration, it was incredibly
-                    poorly written and difficult to follow. I persevered and eventually got a demo working on my
-                    computer, which was a basic grid filled with data from the API. It had almost no styling, but it was
-                    proof that I could build something that would eventually be a workable web app.</p>
-                <p>I then had to figure out some logic. My screen was showing a list of stock items and the stock figure
-                    as it appeared in Brewman. I hadn't solved the problem of showing the stock that was available to
-                    sell.</p>
-                <p>I looked through the API and, with the help of my line manager, found a way to get a list of stock
-                    that was currently out for delivery. For context, beer deliveries can take a long time. If we load
-                    up pallets for a supermarket or wholesaler, they might sit in the back of a lorry in a loading dock
-                    over a bank holiday weekend. We could send them off on Wednesday, but they might not be received
-                    until the following Tuesday.</p>
-                <p>In a dataframe, I made a column for stock that had left the brewery but was not received. I was then
-                    going to add in the total of stock sold that hadn't left the brewery, but I got a great idea. Our
-                    Head Brewer was trying to complete stock takes, but he didn't know how much stock was sitting in the
-                    back of vans and lorries. I could make another screen for our brewers that gave them information
-                    they could use during stock takes. They could start a stock take at the screen, add in all the
-                    unreceived stock, and carry on with their stock take. This would give them an accurate count without
-                    having to dig through sales reports to find out what hadn't been received.</p>
-                <p>I incorporated this logic into my code and everything was looking good. All except my sloppy, poorly
-                    written, first-time code.</p>
+                <p>I started with some pretty messy code. Looking back at the first iteration, it was unbelievably
+                    sloppy and hard to follow. But I kept at it and eventually got a demo running on my computer. It was
+                    a basic grid filled with data from the API. It wasn't pretty, but it proved I could build something
+                    that could eventually become a functional web app.</p>
+                <p>Next, I needed to figure out some logic. My screen was showing a list of stock items and the stock
+                    figures as they appeared in Brewman. I hadn't cracked the nut of showing the stock available for
+                    sale.</p>
+                <p>After sifting through the API, and with some help from my line manager, I found a way to get a list
+                    of stock that was currently out for delivery. Beer deliveries can take ages. Sometimes, pallets for
+                    a supermarket or wholesaler sit in the back of a lorry at a loading dock over a bank holiday
+                    weekend. We might send them off on a Wednesday, but they might not get received until the following
+                    Tuesday.</p>
+                <p>In a dataframe, I created a column for stock that had left the brewery but was not received. I was
+                    about to add in the total of stock sold but still at the brewery when I had an epiphany. Our Head
+                    Brewer needed to know how much stock was sitting in the back of vans and lorries during stock takes.
+                    I could create another screen for our brewers with information they could use during stock takes.
+                    They could start a stock take at the screen, add in all the unreceived stock, and carry on with
+                    their stock take. This would give them an accurate count without digging through sales reports to
+                    find out what hadn't been received.</p>
+                <p>I incorporated this logic into my code, and everything was looking good, except for my messy,
+                    first-time code.</p>
             </div>
         </div>
 
         <div class="section-with-text-and-image">
             <div class="text-on-left">
-                <p>At this point in my journey, my line manager wanted to incorporate some of my code into his project
-                    and said it would be great to have a Brewman API library that we could use for all future projects.
-                </p>
-                <p>I got to work building the library. By this point, my understanding of Python had started to grow and
-                    my library was looking good. It was simple, easy to read, and did the job.</p>
-                <p>I then went back to my stock screens and was horrified with how poorly my code was written. It was
-                    nearly impossible to read and would have been near impossible to maintain. So I took the decision to
-                    start Stock Screens 2.0. A complete rebuild was the only way I could see of incorporating my newly
-                    built API library.</p>
+                <p>At this point in my coding journey, my line manager wanted to incorporate some of my code into his
+                    project. He suggested creating a Brewman API library for all future projects.</p>
+                <p>I got to work building the library. By this point, my understanding of Python had grown, and my
+                    library was shaping up nicely. It was simple, easy to read, and did the job.</p>
+                <p>Then, I went back to my stock screens and was horrified by how poorly my code was written. It was
+                    nearly impossible to read and maintain. So, I decided to embark on Stock Screens 2.0. A complete
+                    rebuild was the only way to incorporate my newly built API library.</p>
             </div>
             <div class="image-on-right">
                 <img src="" alt="">
@@ -142,33 +139,30 @@
 
         <div class="section-with-text-and-image">
             <div class="text-on-left">
-                <p>Before too long, my 2.0 project was ready to be shown to the sales team for feedback. They liked my
-                    design and how it worked, but they asked for a way to add notes and incoming stock figures to each
-                    line.</p>
+                <p>Before long, my 2.0 project was ready for the sales team to check out. They liked the design and
+                    functionality but asked for a way to add notes and incoming stock figures to each line.</p>
                 <p>I set up two CSV files that I could import using Pandas, directly into the dataframe. I found a
-                    report in Brewman that held data on what products were due to be packaged.</p>
-                <p>I made an Excel macro that would take the downloaded report and manipulate it into what I needed for
-                    my screens.</p>
-                <p>I used Power Automate to send out a weekly email asking the sales team to click on a URL that would
-                    take them to the report, download it, click on a link to the macro, and run it. The macro handled
-                    everything else. It saved it in a SharePoint directory and closed everything down.</p>
-                <p>I then made another spreadsheet that could be used to add notes onto the screens. The person adding
-                    the note had to write in the product name and put their note next to it.</p>
-                <p>I scheduled my program to upload from these spreadsheets every 60 seconds. I also set the screens to
-                    get the latest data from the APIs once every 60 seconds. This gave our sales team a real-time view
-                    of what they had available to sell.</p>
-                <p>A little CSS later, and I had stylised screens organised into different stock types, with
-                    colour-coded headers and footers to easily tell them apart.</p>
-                <p>I used Docker to bundle everything together for the PC that was going to run the screens and launched
-                    them. Everyone was happy to begin with, but then I got an error when the program was left running
-                    for days on end, something I hadn't tested.</p>
-                <p>I made some changes to the code, but then I was asked for a tweak here and there, which I did, but I
-                    realised that I was spending a lot of time Dockerising containers for each new version. So I loaded
-                    Visual Studio Code onto the PC and loaded each new version of the code and ran it directly from VSC.
+                    report in Brewman with data on products due to be packaged.</p>
+                <p>I created an Excel macro to transform the downloaded report into the format needed for my screens.
                 </p>
-                <p>Once feature requests and tweaks stopped coming in, I had intended to go back and Dockerise an
-                    updated version, but it turned out the sales team liked having the code on a screen. They thought it
-                    looked cool, so I left it as it was.</p>
+                <p>Using Power Automate, I sent out a weekly email prompting the sales team to click on a URL to
+                    download the report, click a link to the macro, and run it. The macro handled everything, saving the
+                    file in a SharePoint directory and closing everything down.</p>
+                <p>I then created another spreadsheet for adding notes to the screens. The person adding the note just
+                    had to write in the product name and put their note next to it.</p>
+                <p>My program was scheduled to upload from these spreadsheets every 60 seconds. The screens also updated
+                    from the APIs every 60 seconds, giving our sales team a real-time view of available stock.</p>
+                <p>A little CSS later, and I had stylised screens organised into different stock types, with
+                    colour-coded headers and footers for easy differentiation.</p>
+                <p>I used Docker to bundle everything together for the PC running the screens and launched them.
+                    Initially, everyone was happy, but then I encountered an error when the program ran for days on end,
+                    something I hadn't tested.</p>
+                <p>I made some changes to the code and handled some tweak requests. However, I realised I was spending
+                    too much time Dockerising containers for each new version. So, I loaded Visual Studio Code onto the
+                    PC, loaded each new version of the code, and ran it directly from VSC.</p>
+                <p>Once feature requests and tweaks stopped coming in, I intended to Dockerise an updated version. But
+                    the sales team liked having the code on a screen; they thought it looked cool, so I left it as it
+                    was.</p>
             </div>
             <div class="image-on-right">
                 <img src="" alt="">
@@ -177,19 +171,20 @@
 
         <div class="section-with-text-and-image">
             <div class="text-on-left">
-                <p>For future versions, I would like to put this into a live website with secure logins. Our sales team
-                    isn't always in the brewery, and it would be great if the data was available anywhere. I plan to
-                    build a login module that allows users with pre-approved email addresses to make accounts and reset
+                <p>For future versions, I want to put this into a live website with secure logins. Our sales team isn't
+                    always in the brewery, and it would be great if the data was available anywhere. I plan to build a
+                    login module that allows users with pre-approved email addresses to create accounts and reset
                     forgotten passwords.</p>
-                <p>I also want to build in a feature that allows rows to be collapsed, so the user can hide products
-                    that are in stock but not for sale. Beer that's reserved for a particular customer, for example.</p>
-                <p>I'll also revisit and automate the process of getting the future packaging data so that there doesn't
-                    need to be any user interaction to keep everything up to date.</p>
+                <p>I also want to build in a feature that allows rows to be collapsed, so users can hide products that
+                    are in stock but not for sale, like beer reserved for a particular customer.</p>
+                <p>I'll also revisit and automate the process of getting future packaging data, so there's no need for
+                    user interaction to keep everything up to date.</p>
             </div>
             <div class="image-on-right">
                 <img src="" alt="">
             </div>
         </div>
+
 
     </main>
 
