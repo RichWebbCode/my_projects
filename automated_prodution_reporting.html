@@ -48,6 +48,120 @@
             </div>
             <img src="oliver.png" alt="OLIVER">
         </div>
+        <div class="section-with-text-and-image">
+            <div class="text-on-left">
+                <p>When you work in a brewery, you find a large amount of time is taken up with finding data,
+                    filling out reports and trying to figure out what is working well and how to keep it going.
+                </p>
+                <p>Each week I saw our brewing team spending hours sat in front of screen and sifting through paper, to find
+                    the information they needed to enter into a spreadsheet and produce reports. So I got to work building an automation
+                    tool to get them out frm behind the monitor and spending their time making our beer as great as it could be.
+                </p>
+                <p>The first set was to remove as mouch of the paper reporting as possible and get the information entered 
+                    into Brewman, our brewery management software.
+                </p>
+                <p>Next I needed a way to get the data out of Brewman. An API would have been perfect, but Brewman didn't have 
+                    an API for the production side of their software. They built an API for the sales data to be used with accounting 
+                    software. After speaking with Premier Systems, the company that makes Brewman, they said they were interested in
+                    building an API for the production data but it would take quite a bit of time to put in place.
+                </p>
+                <p>The only option I could see was to build an automation and web scapping tool to get the data.</p>
+                <p>After sitting down with our Production Manager, I had a very long list of pages used to find the data. Luckily most of 
+                    the data could be exported into a CSV file.
+                </p>
+            </div>
+            <div class="image-on-right">
+                <img src="" alt="">
+            </div>
+        </div>
+
+        <div class="section-with-image-and-text">
+            <div class="image-on-left">
+                <img src="" alt="">
+            </div>
+            <div class="text-on-right">
+                <p>I started in Python and used the Selenium module to control a Chrome browser. I got it to navigate to Brewman and log in using my credientials.
+                    I planned to build this into an app in the future, so I saved my log in details in a seperate JSON file, just incase anyone found them while looking
+                    at my code.</p>
+                <p>Once the login was successful, I ran it a few times and came accross my first problem. Our Brewman package only allows for 15 concurrent users.
+                    When you have a sales team entering orders, driver logging deliveries and brewers posting data, this can fill up quite fast. When you hit 15 users,
+                    there is a pop-up asking you to boot someone out of the system. You select from a list of users currently logged in and there is a list of how many
+                    minutes that user has been inactive. We have a rule that you never log out a driver, because they are often inactive for long periods, between 
+                    each drop. I would need to build some logic into the system, that could pick the user who had been inactive the longest and wasn't someone
+                    who was delivering. The drivers aren't always a set list of users. If we're having a busy week, anyone can be drafted in to deliver beer. 
+                    To get the minimum viable version of OLIVER up and running, I decided to push this to one side for now and if OLIVER flagged an error when logging in, I would go to Brewman
+                    and choose which user to log out. I would return to this later.
+                </p>
+            </div>
+        </div>
+        <div class="section-with-text-and-image">
+            <div class="text-on-left">
+                <p>Keeping track of what OLIVER was doing started to become a bit complicated. One incorrect action would have a domino effect. One wrong automated 
+                    click in the wrong HTML path and nothing would work.</p>
+                <p>I used a lot of print statements to keep track of what was happening. This allowed me to see at what point my script logic would fail and in the 
+                    beginning, it failed a lot.
+                </p>
+                <p>Keeping track of all the print statements started to become very difficult, so I wrong a short function in Python to colour, timestamp and note 
+                    the line number for each print statement. This worked brilliantly. It may be my dyslexia, scotopic sensitivity or just that reading line after 
+                    line of print statements is tough on the eyes, but this was a game changer and made it so easy to pick out what was happening and at what point.
+                    I reused a lot of functions in the program, so being able to easily keep track of what was making my script fail, sped up my work flow.
+                </p>
+                <p>Here's the code snippet for my print statements.</p>
+                <pre><code class="language-python">
+                    ### Print Statement Decorator
+                    def print_t(message):
+                        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                        frame_info = inspect.getframeinfo(inspect.currentframe().f_back)
+                        line_number = frame_info.lineno
+                    
+                        # ANSI escape codes for text color
+                        #colors = ['\033[91m', '\033[92m']  # Red and Green Use for Christmas
+                        colors = [
+                            '\033[91m',         # Red
+                            '\033[38;5;208m',   # Orange
+                            '\033[93m',         # Yellow
+                            '\033[92m',         # Green
+                            '\033[96m',         # Cyan
+                            '\033[94m',         # Blue
+                            '\033[35m',         # Purple
+                            '\033[95m',         # Magenta        
+                        ]
+                        reset_color = '\033[0m'
+                    
+                        # Alternate the color index with each print statement
+                        print_t.color_index = (print_t.color_index + 1) % len(colors)
+                    
+                        colored_message = f'{colors[print_t.color_index]}Line {line_number}  {message} [{timestamp}]{reset_color}'
+                        print(colored_message)
+                    
+                    # Initialize color_index attribute
+                    print_t.color_index = 0
+                </code></pre>
+                <p>After this code snippet, use the function 'print_t' with your print statement after it and you'll be bathed in a sea of colourful, timestamped
+                    print statements with a not of the line the print statement is on.
+                </p>
+            </div>
+            <div class="image-on-right">
+                <img src="" alt="">
+            </div>
+        </div>
+        <div class="image-on-left">
+            <img src="" alt="">
+        </div>
+        <div class="text-on-right">
+            <p>Once I logged in and could keep track of the print statements, I relised I didn't need to give OLIVER complicated instructions on where to click 
+                to navigate to the right page, I could simply provide a list of URL's for OLIVER to navigate straight to the right page.
+            </p>
+            <p>I could get most of the data about how much beer was brewed from an export in the reporting section. The reports are run in Tableau, embedded into 
+                Brewman. I needed to instruct OLIVER to change screen levels to select the export options. I decided to export the data in the format that it appeared 
+                when the report loaded. My concern was that I have no control over how the report is structured. If there is an update to the file structure of the report
+                I would be left having to go in and constantly update the automation paths. As much as I loved building OLIVER, I didn't want to have to keep
+                going back and updating HTML paths.
+            </p>
+            <p>Once the report was exported, it landed in the users download directory. I then saved this to a SharePoint site using the Microsoft Graph API.</p>
+            <p>This was fine for the first upload. The report contained the last 12 weeks data, but going forward, this would run every week.</p>
+        </div>
+    </div>
     </main>
 
     <footer>
