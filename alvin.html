@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALVIN</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header class="header-link">
+        <div class="menu-btn" onclick="toggleMenu()">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+        <a href="index.html" class="header-link">
+            <img src="website_logo.png" alt="Header Image">
+        </a>
+    </header>
+
+    <nav id="sidebar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="new_product_development.html">HOPSIGHT</a></li>
+            <li><a href="reports.html">OLIVER</a></li>
+            <li><a href="live_inventory_screens.html">Live Inventory Screens</a></li>
+            <li><a href="automated_prodution_reporting.html">Automated Reporting</a></li>
+            <li><a href="brewing_app.html">Recipe Building App</a></li>
+            <li><a href="purchase_orders.html">Purchase Orders</a></li>
+            <li><a href="returns.html">Product Quality Issue Database</a></li>
+            <li><a href="alvin.html">ALVIN</a></li>
+        </ul>
+    </nav>
+
+    <script>
+        function toggleMenu() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+    </script>
+
+    <main>
+        <div class="project" id="project3">
+            <h2>ALVIN</h2>
+            <div class="project-description">
+                <p>Brief:</p>
+            </div>
+            <!--<img src="oliver.png" alt="Project 2">-->
+        </div>
+        <div>
+            <div class="section-with-text-and-image">
+                <div class="text-on-left">
+                    <code>
+                        import inspect
+                        from datetime import datetime
+
+                        #####################################################
+                        # Automated Logging and Visual Information Notifier #
+
+
+                        ### Print Statement Decorator
+                        def ALVIN(message):
+                            timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                            frame_info = inspect.getframeinfo(inspect.currentframe().f_back)
+                            line_number = frame_info.lineno
+
+                            # ANSI escape codes for text color
+                            #colors = ['\033[91m', '\033[92m']  # Red and Green Use for Christmas
+                            colors = [
+                                '\033[91m',         # Red
+                                '\033[38;5;208m',   # Orange
+                                '\033[93m',         # Yellow
+                                '\033[92m',         # Green
+                                '\033[96m',         # Cyan
+                                '\033[94m',         # Blue
+                                '\033[35m',         # Purple
+                                '\033[95m',         # Magenta        
+                            ]
+                            reset_color = '\033[0m'
+
+                            # Alternate the color index with each print statement
+                            ALVIN.color_index = (ALVIN.color_index + 1) % len(colors)
+
+                            colored_message = f'{colors[ALVIN.color_index]}Line {line_number}  {message} [{timestamp}]{reset_color}'
+                            print(colored_message)
+
+                        # Initialize color_index attribute
+                        ALVIN.color_index = 0
+                    </code>
+                </div>
+                <div class="image-on-right">
+                    <img src="" alt="">
+                </div>
+            </div>
+            <div class="section-with-image-and-text">
+                <div class="text-on-right">
+                    <p>
+                        Add the following code into your project to use ALVIN
+                    </p>
+                    <code>
+                        import ALVIN
+                        print_ALVIN = ALVIN.ALVIN
+                    </code>
+                </div>
+                <div class="image-on-left">
+                    <img src="" alt="">
+                </div>
+            </div>
+            <div class="section-with-text-and-image">
+                <div class="text-on-left">
+                    <p>
+                    </p>
+                </div>
+                <div class="image-on-right">
+                    <img src="" alt="">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Richard Webb</p>
+    </footer>
+</body>
+
+</html>
