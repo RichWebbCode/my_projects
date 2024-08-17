@@ -41,7 +41,7 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    height: 20px;
+    height: 2rem;
     z-index: 2;
     /* Ensure menu button is on top */
     position: absolute;
@@ -73,7 +73,7 @@ header {
     z-index: 1000;
     /* Set a high z-index value */
     text-align: center;
-    font-size: 20px;
+    font-size: 2rem;
 }
 
 #sidebar.active {
@@ -145,7 +145,7 @@ footer {
     background-color: #27212a;
     color: #fff;
     text-align: right;
-    padding: 10px 20px; /* Add padding to the right */
+    padding: 10px 2rem; /* Add padding to the right */
     width: calc(100% - 40px); /* Subtract the total padding from the width */
     bottom: 0;
     z-index: -1;
@@ -165,14 +165,14 @@ footer {
     /* Set maximum width for each image (25% of container width minus margin) */
     height: auto;
     /* Maintain aspect ratio */
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
     /* Add margin between images */
 }
 
 .image-with-text {
     display: flex;
     /* Use flexbox to align image and text side by side */
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
     /* Add margin to separate sections */
 }
 
@@ -201,7 +201,7 @@ footer {
     /* Use flexbox */
     flex-direction: column;
     /* Stack items vertically */
-    width: calc(33.33% - 20px);
+    width: calc(33.33% - 2rem);
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -209,7 +209,7 @@ footer {
 
 @media screen and (max-width: 768px) {
     .project-card {
-        width: calc(100% - 20px);
+        width: calc(100% - 2rem);
     }
 }
 
@@ -259,7 +259,7 @@ h3 {
 
 .article-content {
     flex: 25%; /* Take up 25% of the card's height */
-    padding: 20px;
+    padding: 2rem;
 }
 
 .author-info {
@@ -275,7 +275,7 @@ h3 {
         /* Remove right margin on smaller screens */
         flex: 25%;
         /* Take up 25% of the card's height */
-        padding: 20px;
+        padding: 2rem;
     }
 }
 
@@ -356,14 +356,14 @@ time {
 .text-on-left {
     width: 60%;
     /* Set the width of the text section */
-    padding: 20px;
+    padding: 2rem;
     /* Add padding for spacing */
 }
 
 .image-on-right {
     width: 30%;
     /* Set the width of the image section */
-    padding: 20px;
+    padding: 2rem;
     /* Add padding for spacing */
     box-sizing: border-box;
     /* Include padding and border in width calculation */
@@ -382,7 +382,7 @@ time {
 .image-on-left {
     width: 30%;
     /* Set the width of the image section */
-    padding: 20px;
+    padding: 2rem;
     /* Add padding for spacing */
     box-sizing: border-box;
     /* Include padding and border in width calculation */
@@ -396,7 +396,7 @@ time {
 .text-on-right {
     width: 60%;
     /* Set the width of the text section */
-    padding: 20px;
+    padding: 2rem;
     /* Add padding for spacing */
 }
 
@@ -412,11 +412,11 @@ a {
 }
 
 .card {
-    height: 600px;
-    width: 400px;
-    min-width: 250px;
+    height: 37.5rem;
+    width: 25rem;
+    min-width: 15.625rem;
     padding: 1.5rem;
-    border-radius: 16px;
+    border-radius: 1rem;
     background: #17141d;
     box-shadow: -1rem 0 3rem #000;
     transition: .2s;
@@ -447,7 +447,7 @@ a {
 /* Media query for mobile devices */
 @media screen and (max-width: 768px) {
     .tags {
-        height: 60px; /* Adjust the height as needed */
+        height: 3.75rem; /* Adjust the height as needed */
     }
 }
 
@@ -460,14 +460,14 @@ a {
 }
 
 .card-header p {
-    font-size: 14px;
+    font-size: 1rem;
     margin: 0 0 1rem;
     color: #7a7a8c;
     width: 100%;
 }
 
 .card-header h2 {
-    font-size: 20px;
+    font-size: 2rem;
     margin: .25rem 0 auto;
     text-decoration: none;
     color: inherit;
@@ -500,8 +500,8 @@ a {
 }
 
 .author-avatar img {
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50%;
     filter: grayscale(100%);
     display: block;
