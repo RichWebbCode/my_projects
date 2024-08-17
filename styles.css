@@ -354,14 +354,14 @@ time {
 }
 
 .text-on-left {
-    width: 60%;
+    width: 50%;
     /* Set the width of the text section */
     padding: 2rem;
     /* Add padding for spacing */
 }
 
 .image-on-right {
-    width: 30%;
+    width: 50%;
     /* Set the width of the image section */
     padding: 2rem;
     /* Add padding for spacing */
@@ -380,7 +380,7 @@ time {
 }
 
 .image-on-left {
-    width: 30%;
+    width: 50%;
     /* Set the width of the image section */
     padding: 2rem;
     /* Add padding for spacing */
@@ -394,7 +394,7 @@ time {
 }
 
 .text-on-right {
-    width: 60%;
+    width: 50%;
     /* Set the width of the text section */
     padding: 2rem;
     /* Add padding for spacing */
