@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vocal Drop Challenge: Win When They're Singing</title>
+    <title>Win When They're Singing</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght0..900&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f7f7f7;
+            /*background-color: #f7f7f7;*/
+            background: red;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -22,28 +23,35 @@
         }
         .card {
             background-color: white;
-            padding: 2.5rem;
+            padding: 2rem 1.5rem; 
             border-radius: 1rem;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
         .player-grid {
             display: grid;
-            gap: 1rem;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.75rem; 
+            /* Forces 7 columns for a balanced 7+6 layout for 13 players */
+            grid-template-columns: repeat(7, 1fr); 
         }
         .player-box {
-            background-color: #bfdbfe; /* Blue-300: Initial state */
-            padding: 1.5rem 1rem; /* Adjusted padding for better look without score */
+            background-color: #bfdbfe; 
+            padding: 0.75rem 0.5rem; 
             border-radius: 0.75rem;
             border: 2px solid transparent;
             transition: all 0.2s ease-in-out;
             position: relative;
         }
+        .player-box p:first-child { 
+            font-size: 1rem; 
+            font-weight: 700;
+        }
+        .player-box p:last-child { 
+            font-size: 0.75rem; 
+        }
         .player-box.guessed {
-            background-color: #a7f3d0; /* Green-300: Guessed state */
+            background-color: #a7f3d0; 
             border-color: #10b981;
         }
-        /* Removed .player-score CSS */
         .reveal-winner {
             background-color: #d1fae5 !important;
             border: 3px solid #059669;
@@ -51,11 +59,27 @@
         }
         .timer-display {
             font-family: monospace;
-            font-size: 4.5rem;
+            font-size: 3.5rem; 
             font-weight: 700;
             letter-spacing: -2px;
-            color: #ef4444; /* Red-500 */
+            color: #ef4444; 
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* Compact Table Styling for Reveal Phase */
+        #revealPhase th, #revealPhase td {
+            padding-left: 1rem; 
+            padding-right: 1rem;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            font-size: 0.875rem; /* text-sm */
+        }
+        #revealPhase th {
+            font-size: 0.75rem; /* text-xs */
+        }
+        /* Style for the final score winners */
+        .final-winner {
+            background-color: #fffbeb;
         }
     </style>
 </head>
@@ -63,9 +87,10 @@
 
     <div class="container">
         <div id="game-card" class="card space-y-6">
-            <h1 class="text-4xl font-bold text-center text-indigo-700">🎧 Vocal Drop Challenge 🎤</h1>
+            <!--h1 class="text-4xl font-bold text-center text-indigo-700">🎧 Vocal Drop Challenge 🎤</h1-->
             
-            <!-- Global Header/Control Area --><div class="flex justify-between items-center px-4 pt-2 border-b pb-4 border-gray-200">
+            <!-- Global Header/Control Area -->
+            <div class="flex justify-between items-center px-4 pt-2 border-b pb-4 border-gray-200">
                 <p class="text-2xl font-semibold text-gray-700">Round: <span id="roundDisplay" class="text-indigo-600">0</span></p>
                 <div class="flex flex-col items-center">
                     <p class="text-xl font-medium text-gray-600 mb-1" id="timerLabel">Current Time:</p>
@@ -73,29 +98,36 @@
                 </div>
             </div>
 
-            <!-- Removed: "Press START to begin Round 1!" and "Phase 1: Recording Guesses" --><!-- The message element below will now handle context --><p id="message" class="text-center text-xl font-medium text-gray-600 mt-4"></p>
+            <p id="message" class="text-center text-xl font-medium text-gray-600 mt-4"></p>
 
 
-            <!-- --- PHASE 1: GUESSING UI (Default View) --- --><div id="guessPhase" class="mt-8">
+            <!-- --- PHASE 1: GUESSING UI (Default View) --- -->
+            <div id="guessPhase" class="mt-8">
                 <div id="playerContainer" class="player-grid">
-                    <!-- Player boxes will be dynamically injected here --></div>
+                    <!-- Player boxes will be dynamically injected here -->
+                </div>
             </div>
 
-            <!-- --- PHASE 2: REVEAL UI (Hidden until guess complete) --- --><div id="revealPhase" class="hidden mt-6 pt-6 border-t border-gray-200">
-                <!-- Removed: "Phase 2: Reveal & Scoring" --><div id="revealTableContainer" class="overflow-x-auto">
-                    <!-- Results table will be injected here --></div>
+            <!-- --- PHASE 2: REVEAL UI (Hidden until guess complete) --- -->
+            <div id="revealPhase" class="hidden mt-6 pt-6 border-t border-gray-200">
+                <h2 class="text-2xl font-bold text-center text-indigo-700 mb-4">Round Results: Closest Guess Wins!</h2>
+                <div id="revealTableContainer" class="overflow-x-auto">
+                    <!-- Results table will be injected here -->
+                </div>
             </div>
             
             <div id="winnerDisplay" class="text-center text-3xl font-bold text-indigo-700 mb-6"></div>
 
-            <!-- --- PHASE 3: FINAL SCORE UI (Hidden until game over) --- --><div id="finalScorePhase" class="hidden mt-8">
+            <!-- --- PHASE 3: FINAL SCORE UI (Hidden until game over) --- -->
+            <div id="finalScorePhase" class="hidden mt-8">
                 <h2 class="text-4xl font-bold text-center text-indigo-700 mb-6">🏆 Final Results 🏆</h2>
                 <div id="finalScoreTableContainer"></div>
             </div>
 
-            <!-- Main Action Button (Moved to the bottom) --><div class="flex justify-center space-x-4 pt-4">
+            <!-- Main Action Button (Moved to the bottom) -->
+            <div class="flex justify-center space-x-4 pt-4">
                 <button id="mainActionButton" onclick="startGuessPhase()" class="px-8 py-3 bg-indigo-600 text-white font-semibold rounded-full shadow-lg hover:bg-indigo-700 transition duration-150">
-                    START ROUND (Guess Phase)
+                    START ROUND
                 </button>
                 <button id="resetGameButton" onclick="resetGame()" class="px-8 py-3 bg-red-500 text-white font-semibold rounded-full shadow-lg hover:bg-red-600 transition duration-150">
                     RESET GAME
@@ -103,15 +135,18 @@
             </div>
 
 
-            <!-- Audio Element --><audio id="gameAudio" src="" preload="auto"></audio>
+            <!-- Audio Element -->
+            <audio id="gameAudio" src="" preload="auto"></audio>
         </div>
     </div>
 
     <script>
         // --- Configuration ---
         const PLAYER_KEYS_CONFIG = [
-            { key: 'a', name: 'Player 1' }, { key: 's', name: 'Player 2' }, { key: 'd', name: 'Player 3' }, { key: 'f', name: 'Player 4' }, 
-            { key: 'g', name: 'Player 5' }, { key: 'h', name: 'Player 6' }, { key: 'j', name: 'Player 7' }, { key: 'k', name: 'Player 8' }, 
+            // Updated Player List (13 players)
+            { key: '1', name: 'Fiona' }, { key: '2', name: 'Neil' }, { key: '3', name: 'Alex' }, { key: '4', name: 'Jane' }, 
+            { key: '5', name: 'Harry' }, { key: '6', name: 'Hannah' }, { key: '7', name: 'Rosti' }, { key: '8', name: 'Kirsty' }, 
+            { key: '9', name: 'Innes' }, { key: '0', name: 'Joyce' }, { key: 'q', name: 'Karen' }, { key: 'w', name: 'Barbara' }, 
         ];
         
         let PLAYER_KEYS = PLAYER_KEYS_CONFIG.reduce((acc, current) => {
@@ -119,6 +154,7 @@
                 name: current.name, 
                 pressed: false, 
                 time: null, // time in MS when the button was pressed
+                absDiff: Infinity, // New property: Absolute difference from target time
                 targetKey: current.key,
                 score: 0,
             };
@@ -126,19 +162,20 @@
         }, {});
 
         // --- MP3 LIBRARY CONFIGURATION (EDIT THIS SECTION) ---
+        // NOTE: These URLs are public domain music demos and will not contain vocals.
+        // You should replace these with your actual vocal drop tracks when playing live.
         const SONG_LIBRARY = [
-            // Note: Use publicly accessible URLs. Demo tracks below.
             {
                 title: "In the Halls of the Mountain King (Demo 1)",
                 url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                vocalStartMs: 9000, 
-                fadeStopMs: 7000     // Music stops at 7 seconds, guess the 9 second mark
+                vocalStartMs: 10480, 
+                fadeStopMs: 4000     
             },
             {
                 title: "Calm Demo Track (Demo 2)",
                 url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                vocalStartMs: 10500,
-                fadeStopMs: 9000
+                vocalStartMs: 12920,
+                fadeStopMs: 4560
             },
             {
                 title: "High Energy Demo Track (Demo 3)",
@@ -150,15 +187,15 @@
         // --- END MP3 LIBRARY CONFIGURATION ---
 
         // --- Game State Variables ---
-        let gameState = 'SETUP'; // SETUP, GUESSING, GUESS_COMPLETE, REVEAL_SETUP, REVEALING, ROUND_OVER
-        let gameActive = false;
+        let gameState = 'SETUP';
         let songStartTime = 0;
         let roundNumber = 0;
         let currentSongIndex = 0;
         let VOCAL_START_MS = 0;
         let fadeTimer = null; 
-        let revealStopTimer = null; // Timer to stop the audio/clock during reveal
-        let gameTimerInterval = null; // Interval for the continuously running timer display
+        let fadeInterval = null; 
+        let revealStopTimer = null; 
+        let gameTimerInterval = null; 
 
         // --- DOM Elements ---
         const messageEl = document.getElementById('message');
@@ -180,15 +217,12 @@
             createPlayerBoxes();
             updateSongDisplay();
             updateButtonState();
-            messageEl.textContent = 'Click START to begin Round 1!'; // Initial message
+            messageEl.textContent = 'Click START to begin Round 1!'; 
         };
 
         function updateSongDisplay() {
              const song = SONG_LIBRARY[currentSongIndex];
-             if (song) {
-                 // Target time is stored internally, not displayed.
-                 // VOCAL_START_MS is set in startGuessPhase()
-             }
+             // In the future, you could display the song title here if desired
         }
 
         function createPlayerBoxes() {
@@ -199,16 +233,15 @@
                 
                 const playerBox = document.createElement('div');
                 playerBox.id = player.boxId = `player${index + 1}Box`;
-                playerBox.className = 'player-box'; // Initial blue color
+                playerBox.className = 'player-box'; 
                 playerBox.innerHTML = `
-                    <!-- Individual scores removed from UI --><p class="text-center font-bold text-lg text-indigo-800">${config.name}</p>
-                    <p class="text-center text-sm text-indigo-600 mt-1">Press: <span class="bg-indigo-400 text-white p-1 rounded font-mono">${key.toUpperCase()}</span></p>
+                    <p class="text-center font-bold text-indigo-800">${config.name}</p>
+                    <p class="text-center text-indigo-600 mt-1">Press: <span class="bg-indigo-400 text-white p-1 rounded font-mono">${key.toUpperCase()}</span></p>
                 `;
                 playerContainer.appendChild(playerBox);
                 
                 player.timeId = `time${key.toUpperCase()}`;
                 player.boxId = `player${index + 1}Box`;
-                player.scoreId = `score${key.toUpperCase()}`; // Kept for internal logic reference
             });
         }
         
@@ -245,6 +278,12 @@
                     mainActionButton.onclick = nextRound;
                     mainActionButton.disabled = false;
                     break;
+                case 'FINAL_SCORES_DISPLAYED':
+                    mainActionButton.textContent = 'GAME OVER';
+                    mainActionButton.onclick = null;
+                    mainActionButton.disabled = true;
+                    resetGameButton.disabled = false;
+                    break;
             }
         }
 
@@ -252,18 +291,38 @@
         function startTimer() {
             gameTimerInterval = setInterval(() => {
                 const elapsed = performance.now() - songStartTime;
-                // Display as SS.CC (seconds.centiseconds)
                 gameTimerEl.textContent = (elapsed / 1000).toFixed(2).padStart(5, '0');
-            }, 10); // Update every 10ms for centisecond display
+            }, 10);
         }
 
         function stopTimer(finalTime = null) {
             clearInterval(gameTimerInterval);
             if (finalTime !== null) {
-                // Ensure final display is also SS.CC
                 gameTimerEl.textContent = (finalTime / 1000).toFixed(2).padStart(5, '0');
             }
         }
+        
+        // --- Audio Fade Function (Smoother) ---
+        function fadeAudio(durationMs = 500) {
+            clearInterval(fadeInterval);
+            const steps = 25; 
+            const intervalTime = durationMs / steps;
+            let currentVolume = audio.volume;
+            const volumeStep = currentVolume / steps;
+
+            fadeInterval = setInterval(() => {
+                currentVolume -= volumeStep;
+                if (currentVolume <= 0) {
+                    audio.volume = 0;
+                    audio.pause();
+                    clearInterval(fadeInterval);
+                    fadeInterval = null; 
+                } else {
+                    audio.volume = currentVolume;
+                }
+            }, intervalTime);
+        }
+
 
         // --- Phase 1: Guessing Logic ---
 
@@ -284,12 +343,13 @@
             winnerDisplayEl.textContent = '';
             revealPhaseEl.classList.add('hidden');
             guessPhaseEl.classList.remove('hidden');
-            finalScorePhaseEl.classList.add('hidden'); // Ensure final score is hidden
+            finalScorePhaseEl.classList.add('hidden'); 
 
             // Reset player state
             Object.values(PLAYER_KEYS).forEach(player => {
                 player.pressed = false;
                 player.time = null;
+                player.absDiff = Infinity; // Reset absolute difference
                 document.getElementById(player.boxId).classList.remove('guessed');
                 document.getElementById(player.boxId).classList.remove('reveal-winner');
             });
@@ -308,10 +368,9 @@
             songStartTime = performance.now();
             startTimer();
 
-            // 3. Set the fade/stop timer (music stops, timer continues)
+            // 3. Set the fade/stop timer 
             fadeTimer = setTimeout(() => {
-                audio.pause();
-                audio.volume = 0.0;
+                fadeAudio(500); // Fade audio over 500ms
                 messageEl.textContent = `Round ${roundNumber}: MUSIC STOPPED! Press when you think the vocals start!`;
             }, currentSong.fadeStopMs);
         }
@@ -325,10 +384,8 @@
             player.time = pressTime;
             player.pressed = true;
             
-            // UI update for Guessing Phase: turn green
             document.getElementById(player.boxId).classList.add('guessed');
 
-            // If all players have pressed, end the round
             if (Object.values(PLAYER_KEYS).every(p => p.pressed)) {
                 endGuessPhase();
             }
@@ -338,7 +395,13 @@
             if (gameState !== 'GUESSING') return;
             
             stopTimer();
-            stopAudio();
+            // Ensure audio is fully stopped
+            if(audio.volume > 0) {
+                audio.volume = 0;
+                audio.pause();
+            }
+            clearInterval(fadeInterval);
+            
             gameState = 'GUESS_COMPLETE';
             messageEl.textContent = `All guesses recorded! Press VIEW RESULTS.`;
             updateButtonState();
@@ -355,27 +418,28 @@
             // Show Reveal UI and Hide Guess UI
             guessPhaseEl.classList.add('hidden');
             revealPhaseEl.classList.remove('hidden');
-            finalScorePhaseEl.classList.add('hidden'); // Ensure final score is hidden
+            finalScorePhaseEl.classList.add('hidden'); 
             winnerDisplayEl.textContent = '';
 
-
-            // 1. Prepare and display the sorted results table (quickest at the top)
+            const targetTime = VOCAL_START_MS;
             const players = Object.values(PLAYER_KEYS);
             
-            // Sort by time, putting players who didn't press (time=null) at the bottom
-            players.sort((a, b) => {
-                const timeA = a.time === null ? Infinity : a.time;
-                const timeB = b.time === null ? Infinity : b.time;
-                return timeA - timeB;
+            // 1. Calculate Absolute Difference for all players who pressed
+            players.forEach(player => {
+                player.absDiff = player.time === null ? Infinity : Math.abs(player.time - targetTime);
             });
 
+            // 2. Sort players by the calculated absolute difference (closest first)
+            players.sort((a, b) => a.absDiff - b.absDiff);
+
+            // 3. Prepare and display the sorted results table (compact version)
             let tableHTML = `
                 <table class="min-w-full divide-y divide-gray-200 shadow-lg rounded-lg mb-6">
                     <thead class="bg-indigo-50">
                         <tr>
-                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Player</th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Press Time (Guess)</th>
+                            <th class="px-6 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rank</th>
+                            <th class="px-6 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Player</th>
+                            <th class="px-6 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Guess Time</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
@@ -385,23 +449,21 @@
                 // Time displayed in SS.CC format
                 const timeText = player.time === null ? 'N/A' : (player.time / 1000).toFixed(2) + 's';
                 
-                // Coloring Change: Only apply bg-gray-100 for 'No Press', otherwise use bg-white.
                 const rowClass = player.time === null ? 'bg-gray-100' : 'bg-white'; 
 
                 tableHTML += `
                     <tr class="${rowClass}" id="revealRow${player.targetKey.toUpperCase()}">
-                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900 font-bold">${index + 1}</td>
-                        <td class="px-6 py-3 whitespace-nowrap text-sm font-medium text-indigo-700">${player.name} (${player.targetKey.toUpperCase()})</td>
-                        <td class="px-6 py-3 whitespace-nowrap text-center text-lg font-mono">${timeText}</td>
+                        <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-900 font-bold">${index + 1}</td>
+                        <td class="px-6 py-2 whitespace-nowrap text-sm font-medium text-indigo-700">${player.name} (${player.targetKey.toUpperCase()})</td>
+                        <td class="px-6 py-2 whitespace-nowrap text-center text-sm font-mono">${timeText}</td>
                     </tr>
                 `;
-                // Attach the key to the DOM for easy referencing in scoring
                 player.revealRowId = `revealRow${player.targetKey.toUpperCase()}`;
             });
             
             tableHTML += '</tbody></table>';
             revealTableContainer.innerHTML = tableHTML;
-            messageEl.textContent = 'Review guesses. Press START REVEAL when ready!'; // Updated message
+            messageEl.textContent = 'Review guesses. Press START REVEAL when ready!';
         }
 
         function startRevealPhase() {
@@ -413,7 +475,7 @@
             updateButtonState();
             messageEl.textContent = 'REVEAL IN PROGRESS! Watch the timer for the exact vocal start...';
 
-            // 1. Load and Play the audio (no fade out this time)
+            // 1. Load and Play the audio 
             audio.src = currentSong.url;
             audio.volume = 1.0;
             audio.currentTime = 0; 
@@ -430,24 +492,23 @@
         function stopReveal() {
             if (gameState !== 'REVEALING') return;
             
-            // Stop timer and set display to the exact vocal start time (this is the moment of truth!)
             stopTimer(VOCAL_START_MS); 
             stopAudio();
             clearTimeout(revealStopTimer);
 
-            // Run the scoring logic
             scoreRound();
         }
 
         function scoreRound() {
+            const targetTime = VOCAL_START_MS;
             const players = Object.values(PLAYER_KEYS);
             let winningDifference = Infinity;
             let winners = [];
 
-            // 1. Find the closest VALID press (must be >= VOCAL_START_MS)
-            players.filter(p => p.time !== null && p.time >= VOCAL_START_MS)
+            // 1. Find the closest overall press (smallest absolute difference)
+            players.filter(p => p.time !== null)
                 .forEach(player => {
-                    const difference = player.time - VOCAL_START_MS;
+                    const difference = Math.abs(player.time - targetTime);
                     
                     if (difference < winningDifference) {
                         winningDifference = difference;
@@ -460,7 +521,6 @@
             // 2. Award points and update UI
             if (winners.length > 0) {
                 let winnerNames = winners.map(w => w.name).join(' & ');
-                let winnerMessage = '';
                 
                 winners.forEach(winner => {
                     winner.score++;
@@ -468,18 +528,18 @@
                     // Highlight the winner in the Reveal table
                     const revealRow = document.getElementById(winner.revealRowId);
                     if(revealRow) {
-                         // Remove previous row coloring (bg-white/bg-gray-100) and apply winner coloring
                         revealRow.className = ''; 
                         revealRow.classList.add('reveal-winner');
                     }
                 });
                 
                 // Display winning difference in SS.CC format
-                winnerMessage = `🎉 ${winnerNames} win${winners.length > 1 ? '' : 's'} the round! They pressed just ${(winningDifference / 1000).toFixed(2)}s after the target. (+1 Point${winners.length > 1 ? ' Each' : ''}!)`;
+                const timeDiffText = (winningDifference / 1000).toFixed(2);
+                const winnerMessage = `🎉 ${winnerNames} win${winners.length > 1 ? '' : 's'} the round! Their best guess was just ${timeDiffText}s away from the target! (+1 Point${winners.length > 1 ? ' Each' : ''}!)`;
                 winnerDisplayEl.innerHTML = winnerMessage;
                 messageEl.textContent = 'Round scored! Press NEXT SONG.';
             } else {
-                winnerDisplayEl.textContent = "No winner this round: No valid presses recorded or everyone was too early. No points awarded.";
+                winnerDisplayEl.textContent = "No winner this round: No players made a guess. No points awarded.";
                 messageEl.textContent = 'Round scored! Press NEXT SONG.';
             }
 
@@ -491,16 +551,16 @@
         // --- Utility and Reset Functions ---
         function stopAudio() {
             clearTimeout(fadeTimer);
+            clearInterval(fadeInterval);
             if (audio) {
-                audio.pause();
                 audio.volume = 0.0;
+                audio.pause();
             }
         }
         
         function nextRound() {
             currentSongIndex++; 
             
-            // If there are more songs, go back to SETUP
             if (currentSongIndex < SONG_LIBRARY.length) {
                 updateSongDisplay();
                 gameState = 'SETUP';
@@ -511,7 +571,6 @@
                 finalScorePhaseEl.classList.add('hidden');
                 winnerDisplayEl.textContent = '';
             } else {
-                // Game over: transition to the final scores page
                 displayFinalScores();
             }
         }
@@ -531,6 +590,20 @@
 
             const finalScoreTableContainer = document.getElementById('finalScoreTableContainer');
 
+            // --- Joint Ranking Logic ---
+            let rankedPlayers = [];
+            let currentRank = 1;
+
+            players.forEach((player, index) => {
+                if (index > 0 && player.score < players[index - 1].score) {
+                    // Score is lower than the previous player, so the rank increases to current index position
+                    currentRank = index + 1;
+                }
+                // If scores are equal, they share the previous rank.
+                rankedPlayers.push({ player, rank: currentRank });
+            });
+            // --- End Joint Ranking Logic ---
+
             let tableHTML = `
                 <table class="min-w-full divide-y divide-gray-200 shadow-xl rounded-lg overflow-hidden">
                     <thead class="bg-indigo-600 text-white">
@@ -543,14 +616,17 @@
                     <tbody class="bg-white divide-y divide-gray-200">
             `;
             
-            players.forEach((player, index) => {
-                const isWinner = index === 0 && player.score > 0;
-                // Highlight the overall winner(s)
-                const rowClass = isWinner ? 'bg-yellow-50 font-extrabold' : 'bg-white';
+            rankedPlayers.forEach((item, index) => {
+                const player = item.player;
+                const rank = item.rank;
+                
+                // Highlight players tied for 1st place (assuming score > 0)
+                const isWinner = rank === 1 && player.score > 0;
+                const rowClass = isWinner ? 'final-winner font-extrabold' : 'bg-white';
                 
                 tableHTML += `
                     <tr class="${rowClass}">
-                        <td class="px-6 py-4 whitespace-nowrap text-lg text-indigo-800">${index + 1}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-lg text-indigo-800">${rank}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-lg text-gray-900">${player.name}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-center text-2xl font-mono text-indigo-600">${player.score}</td>
                     </tr>
@@ -560,18 +636,16 @@
             tableHTML += '</tbody></table>';
             finalScoreTableContainer.innerHTML = tableHTML;
             
-            // Update message for final scores
             messageEl.textContent = 'Game concluded! Press RESET GAME to play again.';
 
-            // Set game state for button handling - ensure only reset is prominent
-            gameState = 'FINAL_SCORES_DISPLAYED'; // New state for final display
-            updateButtonState(); // This will disable NEXT SONG and enable RESET GAME
+            gameState = 'FINAL_SCORES_DISPLAYED'; 
+            updateButtonState(); 
         }
         
         function resetGame() {
             stopAudio();
             stopTimer(0);
-            clearTimeout(fadeTimer); // Clear any pending fade timer
+            clearTimeout(fadeTimer); 
             clearTimeout(revealStopTimer);
 
             // Reset all state variables
@@ -584,6 +658,7 @@
                 player.score = 0;
                 player.pressed = false;
                 player.time = null;
+                player.absDiff = Infinity;
             });
             
             // Reset UI
