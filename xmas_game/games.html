@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocal Drop Challenge: Win When They're Singing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght0..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .container {
+            max-width: 95%;
+            width: 1000px;
+        }
+        .card {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .player-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+        .player-box {
+            background-color: #bfdbfe; /* Blue-300: Initial state */
+            padding: 1.5rem 1rem; /* Adjusted padding for better look without score */
+            border-radius: 0.75rem;
+            border: 2px solid transparent;
+            transition: all 0.2s ease-in-out;
+            position: relative;
+        }
+        .player-box.guessed {
+            background-color: #a7f3d0; /* Green-300: Guessed state */
+            border-color: #10b981;
+        }
+        /* Removed .player-score CSS */
+        .reveal-winner {
+            background-color: #d1fae5 !important;
+            border: 3px solid #059669;
+            font-weight: bold;
+        }
+        .timer-display {
+            font-family: monospace;
+            font-size: 4.5rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            color: #ef4444; /* Red-500 */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="game-card" class="card space-y-6">
+            <h1 class="text-4xl font-bold text-center text-indigo-700">🎧 Vocal Drop Challenge 🎤</h1>
+            
+            <!-- Global Header/Control Area --><div class="flex justify-between items-center px-4 pt-2 border-b pb-4 border-gray-200">
+                <p class="text-2xl font-semibold text-gray-700">Round: <span id="roundDisplay" class="text-indigo-600">0</span></p>
+                <div class="flex flex-col items-center">
+                    <p class="text-xl font-medium text-gray-600 mb-1" id="timerLabel">Current Time:</p>
+                    <p id="gameTimer" class="timer-display">00.00</p>
+                </div>
+            </div>
+
+            <!-- Removed: "Press START to begin Round 1!" and "Phase 1: Recording Guesses" --><!-- The message element below will now handle context --><p id="message" class="text-center text-xl font-medium text-gray-600 mt-4"></p>
+
+
+            <!-- --- PHASE 1: GUESSING UI (Default View) --- --><div id="guessPhase" class="mt-8">
+                <div id="playerContainer" class="player-grid">
+                    <!-- Player boxes will be dynamically injected here --></div>
+            </div>
+
+            <!-- --- PHASE 2: REVEAL UI (Hidden until guess complete) --- --><div id="revealPhase" class="hidden mt-6 pt-6 border-t border-gray-200">
+                <!-- Removed: "Phase 2: Reveal & Scoring" --><div id="revealTableContainer" class="overflow-x-auto">
+                    <!-- Results table will be injected here --></div>
+            </div>
+            
+            <div id="winnerDisplay" class="text-center text-3xl font-bold text-indigo-700 mb-6"></div>
+
+            <!-- --- PHASE 3: FINAL SCORE UI (Hidden until game over) --- --><div id="finalScorePhase" class="hidden mt-8">
+                <h2 class="text-4xl font-bold text-center text-indigo-700 mb-6">🏆 Final Results 🏆</h2>
+                <div id="finalScoreTableContainer"></div>
+            </div>
+
+            <!-- Main Action Button (Moved to the bottom) --><div class="flex justify-center space-x-4 pt-4">
+                <button id="mainActionButton" onclick="startGuessPhase()" class="px-8 py-3 bg-indigo-600 text-white font-semibold rounded-full shadow-lg hover:bg-indigo-700 transition duration-150">
+                    START ROUND (Guess Phase)
+                </button>
+                <button id="resetGameButton" onclick="resetGame()" class="px-8 py-3 bg-red-500 text-white font-semibold rounded-full shadow-lg hover:bg-red-600 transition duration-150">
+                    RESET GAME
+                </button>
+            </div>
+
+
+            <!-- Audio Element --><audio id="gameAudio" src="" preload="auto"></audio>
+        </div>
+    </div>
+
+    <script>
+        // --- Configuration ---
+        const PLAYER_KEYS_CONFIG = [
+            { key: 'a', name: 'Player 1' }, { key: 's', name: 'Player 2' }, { key: 'd', name: 'Player 3' }, { key: 'f', name: 'Player 4' }, 
+            { key: 'g', name: 'Player 5' }, { key: 'h', name: 'Player 6' }, { key: 'j', name: 'Player 7' }, { key: 'k', name: 'Player 8' }, 
+        ];
+        
+        let PLAYER_KEYS = PLAYER_KEYS_CONFIG.reduce((acc, current) => {
+            acc[current.key] = { 
+                name: current.name, 
+                pressed: false, 
+                time: null, // time in MS when the button was pressed
+                targetKey: current.key,
+                score: 0,
+            };
+            return acc;
+        }, {});
+
+        // --- MP3 LIBRARY CONFIGURATION (EDIT THIS SECTION) ---
+        const SONG_LIBRARY = [
+            // Note: Use publicly accessible URLs. Demo tracks below.
+            {
+                title: "In the Halls of the Mountain King (Demo 1)",
+                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+                vocalStartMs: 9000, 
+                fadeStopMs: 7000     // Music stops at 7 seconds, guess the 9 second mark
+            },
+            {
+                title: "Calm Demo Track (Demo 2)",
+                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                vocalStartMs: 10500,
+                fadeStopMs: 9000
+            },
+            {
+                title: "High Energy Demo Track (Demo 3)",
+                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+                vocalStartMs: 15000,
+                fadeStopMs: 12000
+            }
+        ];
+        // --- END MP3 LIBRARY CONFIGURATION ---
+
+        // --- Game State Variables ---
+        let gameState = 'SETUP'; // SETUP, GUESSING, GUESS_COMPLETE, REVEAL_SETUP, REVEALING, ROUND_OVER
+        let gameActive = false;
+        let songStartTime = 0;
+        let roundNumber = 0;
+        let currentSongIndex = 0;
+        let VOCAL_START_MS = 0;
+        let fadeTimer = null; 
+        let revealStopTimer = null; // Timer to stop the audio/clock during reveal
+        let gameTimerInterval = null; // Interval for the continuously running timer display
+
+        // --- DOM Elements ---
+        const messageEl = document.getElementById('message');
+        const mainActionButton = document.getElementById('mainActionButton');
+        const resetGameButton = document.getElementById('resetGameButton');
+        const winnerDisplayEl = document.getElementById('winnerDisplay');
+        const playerContainer = document.getElementById('playerContainer');
+        const roundDisplay = document.getElementById('roundDisplay');
+        const gameTimerEl = document.getElementById('gameTimer');
+        const revealPhaseEl = document.getElementById('revealPhase');
+        const guessPhaseEl = document.getElementById('guessPhase');
+        const revealTableContainer = document.getElementById('revealTableContainer');
+        const finalScorePhaseEl = document.getElementById('finalScorePhase');
+        let audio;
+
+        // --- Setup and Initialization ---
+        window.onload = () => {
+            audio = document.getElementById('gameAudio');
+            createPlayerBoxes();
+            updateSongDisplay();
+            updateButtonState();
+            messageEl.textContent = 'Click START to begin Round 1!'; // Initial message
+        };
+
+        function updateSongDisplay() {
+             const song = SONG_LIBRARY[currentSongIndex];
+             if (song) {
+                 // Target time is stored internally, not displayed.
+                 // VOCAL_START_MS is set in startGuessPhase()
+             }
+        }
+
+        function createPlayerBoxes() {
+            playerContainer.innerHTML = ''; 
+            PLAYER_KEYS_CONFIG.forEach((config, index) => {
+                const key = config.key;
+                const player = PLAYER_KEYS[key];
+                
+                const playerBox = document.createElement('div');
+                playerBox.id = player.boxId = `player${index + 1}Box`;
+                playerBox.className = 'player-box'; // Initial blue color
+                playerBox.innerHTML = `
+                    <!-- Individual scores removed from UI --><p class="text-center font-bold text-lg text-indigo-800">${config.name}</p>
+                    <p class="text-center text-sm text-indigo-600 mt-1">Press: <span class="bg-indigo-400 text-white p-1 rounded font-mono">${key.toUpperCase()}</span></p>
+                `;
+                playerContainer.appendChild(playerBox);
+                
+                player.timeId = `time${key.toUpperCase()}`;
+                player.boxId = `player${index + 1}Box`;
+                player.scoreId = `score${key.toUpperCase()}`; // Kept for internal logic reference
+            });
+        }
+        
+        function updateButtonState() {
+            switch (gameState) {
+                case 'SETUP':
+                    mainActionButton.textContent = 'START ROUND';
+                    mainActionButton.onclick = startGuessPhase;
+                    mainActionButton.disabled = currentSongIndex >= SONG_LIBRARY.length;
+                    resetGameButton.disabled = false;
+                    break;
+                case 'GUESSING':
+                    mainActionButton.textContent = 'END GUESSES (Manual)';
+                    mainActionButton.onclick = endGuessPhase;
+                    mainActionButton.disabled = false;
+                    break;
+                case 'GUESS_COMPLETE':
+                    mainActionButton.textContent = 'VIEW RESULTS';
+                    mainActionButton.onclick = viewResultsPhase;
+                    mainActionButton.disabled = false;
+                    break;
+                case 'REVEAL_SETUP':
+                    mainActionButton.textContent = 'START REVEAL';
+                    mainActionButton.onclick = startRevealPhase;
+                    mainActionButton.disabled = false;
+                    break;
+                case 'REVEALING':
+                    mainActionButton.textContent = 'REVEAL IN PROGRESS...';
+                    mainActionButton.onclick = null;
+                    mainActionButton.disabled = true;
+                    break;
+                case 'ROUND_OVER':
+                    mainActionButton.textContent = 'NEXT SONG';
+                    mainActionButton.onclick = nextRound;
+                    mainActionButton.disabled = false;
+                    break;
+            }
+        }
+
+        // --- Timer Functions ---
+        function startTimer() {
+            gameTimerInterval = setInterval(() => {
+                const elapsed = performance.now() - songStartTime;
+                // Display as SS.CC (seconds.centiseconds)
+                gameTimerEl.textContent = (elapsed / 1000).toFixed(2).padStart(5, '0');
+            }, 10); // Update every 10ms for centisecond display
+        }
+
+        function stopTimer(finalTime = null) {
+            clearInterval(gameTimerInterval);
+            if (finalTime !== null) {
+                // Ensure final display is also SS.CC
+                gameTimerEl.textContent = (finalTime / 1000).toFixed(2).padStart(5, '0');
+            }
+        }
+
+        // --- Phase 1: Guessing Logic ---
+
+        function startGuessPhase() {
+            if (currentSongIndex >= SONG_LIBRARY.length) {
+                messageEl.textContent = "GAME OVER! Please press RESET GAME.";
+                return;
+            }
+
+            const currentSong = SONG_LIBRARY[currentSongIndex];
+            VOCAL_START_MS = currentSong.vocalStartMs;
+            
+            // Setup UI for Guessing
+            roundNumber++;
+            roundDisplay.textContent = roundNumber;
+            gameTimerEl.textContent = '00.00';
+            messageEl.textContent = `Round ${roundNumber}: Music playing. Listen for the song to fade out!`;
+            winnerDisplayEl.textContent = '';
+            revealPhaseEl.classList.add('hidden');
+            guessPhaseEl.classList.remove('hidden');
+            finalScorePhaseEl.classList.add('hidden'); // Ensure final score is hidden
+
+            // Reset player state
+            Object.values(PLAYER_KEYS).forEach(player => {
+                player.pressed = false;
+                player.time = null;
+                document.getElementById(player.boxId).classList.remove('guessed');
+                document.getElementById(player.boxId).classList.remove('reveal-winner');
+            });
+            
+            updateSongDisplay();
+            gameState = 'GUESSING';
+            updateButtonState();
+
+            // 1. Load and Play the audio
+            audio.src = currentSong.url;
+            audio.volume = 1.0;
+            audio.currentTime = 0; 
+            audio.play().catch(e => console.error("Audio play failed:", e));
+
+            // 2. Start the master timer
+            songStartTime = performance.now();
+            startTimer();
+
+            // 3. Set the fade/stop timer (music stops, timer continues)
+            fadeTimer = setTimeout(() => {
+                audio.pause();
+                audio.volume = 0.0;
+                messageEl.textContent = `Round ${roundNumber}: MUSIC STOPPED! Press when you think the vocals start!`;
+            }, currentSong.fadeStopMs);
+        }
+        
+        function recordTime(playerKey, timestamp) {
+            const player = PLAYER_KEYS[playerKey];
+            if (gameState !== 'GUESSING' || player.pressed) return;
+
+            const pressTime = timestamp - songStartTime;
+            
+            player.time = pressTime;
+            player.pressed = true;
+            
+            // UI update for Guessing Phase: turn green
+            document.getElementById(player.boxId).classList.add('guessed');
+
+            // If all players have pressed, end the round
+            if (Object.values(PLAYER_KEYS).every(p => p.pressed)) {
+                endGuessPhase();
+            }
+        }
+
+        function endGuessPhase() {
+            if (gameState !== 'GUESSING') return;
+            
+            stopTimer();
+            stopAudio();
+            gameState = 'GUESS_COMPLETE';
+            messageEl.textContent = `All guesses recorded! Press VIEW RESULTS.`;
+            updateButtonState();
+        }
+        
+        // --- Phase 2: Reveal Logic ---
+
+        function viewResultsPhase() {
+            if (gameState !== 'GUESS_COMPLETE') return;
+
+            gameState = 'REVEAL_SETUP';
+            updateButtonState();
+            
+            // Show Reveal UI and Hide Guess UI
+            guessPhaseEl.classList.add('hidden');
+            revealPhaseEl.classList.remove('hidden');
+            finalScorePhaseEl.classList.add('hidden'); // Ensure final score is hidden
+            winnerDisplayEl.textContent = '';
+
+
+            // 1. Prepare and display the sorted results table (quickest at the top)
+            const players = Object.values(PLAYER_KEYS);
+            
+            // Sort by time, putting players who didn't press (time=null) at the bottom
+            players.sort((a, b) => {
+                const timeA = a.time === null ? Infinity : a.time;
+                const timeB = b.time === null ? Infinity : b.time;
+                return timeA - timeB;
+            });
+
+            let tableHTML = `
+                <table class="min-w-full divide-y divide-gray-200 shadow-lg rounded-lg mb-6">
+                    <thead class="bg-indigo-50">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Player</th>
+                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Press Time (Guess)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+            `;
+            
+            players.forEach((player, index) => {
+                // Time displayed in SS.CC format
+                const timeText = player.time === null ? 'N/A' : (player.time / 1000).toFixed(2) + 's';
+                
+                // Coloring Change: Only apply bg-gray-100 for 'No Press', otherwise use bg-white.
+                const rowClass = player.time === null ? 'bg-gray-100' : 'bg-white'; 
+
+                tableHTML += `
+                    <tr class="${rowClass}" id="revealRow${player.targetKey.toUpperCase()}">
+                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900 font-bold">${index + 1}</td>
+                        <td class="px-6 py-3 whitespace-nowrap text-sm font-medium text-indigo-700">${player.name} (${player.targetKey.toUpperCase()})</td>
+                        <td class="px-6 py-3 whitespace-nowrap text-center text-lg font-mono">${timeText}</td>
+                    </tr>
+                `;
+                // Attach the key to the DOM for easy referencing in scoring
+                player.revealRowId = `revealRow${player.targetKey.toUpperCase()}`;
+            });
+            
+            tableHTML += '</tbody></table>';
+            revealTableContainer.innerHTML = tableHTML;
+            messageEl.textContent = 'Review guesses. Press START REVEAL when ready!'; // Updated message
+        }
+
+        function startRevealPhase() {
+            if (gameState !== 'REVEAL_SETUP') return;
+
+            const currentSong = SONG_LIBRARY[currentSongIndex];
+            
+            gameState = 'REVEALING';
+            updateButtonState();
+            messageEl.textContent = 'REVEAL IN PROGRESS! Watch the timer for the exact vocal start...';
+
+            // 1. Load and Play the audio (no fade out this time)
+            audio.src = currentSong.url;
+            audio.volume = 1.0;
+            audio.currentTime = 0; 
+            audio.play().catch(e => console.error("Audio play failed:", e));
+
+            // 2. Start the master timer from 0
+            songStartTime = performance.now();
+            startTimer();
+
+            // 3. Set a timeout to stop the clock EXACTLY at VOCAL_START_MS
+            revealStopTimer = setTimeout(stopReveal, VOCAL_START_MS);
+        }
+
+        function stopReveal() {
+            if (gameState !== 'REVEALING') return;
+            
+            // Stop timer and set display to the exact vocal start time (this is the moment of truth!)
+            stopTimer(VOCAL_START_MS); 
+            stopAudio();
+            clearTimeout(revealStopTimer);
+
+            // Run the scoring logic
+            scoreRound();
+        }
+
+        function scoreRound() {
+            const players = Object.values(PLAYER_KEYS);
+            let winningDifference = Infinity;
+            let winners = [];
+
+            // 1. Find the closest VALID press (must be >= VOCAL_START_MS)
+            players.filter(p => p.time !== null && p.time >= VOCAL_START_MS)
+                .forEach(player => {
+                    const difference = player.time - VOCAL_START_MS;
+                    
+                    if (difference < winningDifference) {
+                        winningDifference = difference;
+                        winners = [player]; // New winner found
+                    } else if (difference === winningDifference) {
+                        winners.push(player); // Joint winner
+                    }
+                });
+            
+            // 2. Award points and update UI
+            if (winners.length > 0) {
+                let winnerNames = winners.map(w => w.name).join(' & ');
+                let winnerMessage = '';
+                
+                winners.forEach(winner => {
+                    winner.score++;
+                    
+                    // Highlight the winner in the Reveal table
+                    const revealRow = document.getElementById(winner.revealRowId);
+                    if(revealRow) {
+                         // Remove previous row coloring (bg-white/bg-gray-100) and apply winner coloring
+                        revealRow.className = ''; 
+                        revealRow.classList.add('reveal-winner');
+                    }
+                });
+                
+                // Display winning difference in SS.CC format
+                winnerMessage = `🎉 ${winnerNames} win${winners.length > 1 ? '' : 's'} the round! They pressed just ${(winningDifference / 1000).toFixed(2)}s after the target. (+1 Point${winners.length > 1 ? ' Each' : ''}!)`;
+                winnerDisplayEl.innerHTML = winnerMessage;
+                messageEl.textContent = 'Round scored! Press NEXT SONG.';
+            } else {
+                winnerDisplayEl.textContent = "No winner this round: No valid presses recorded or everyone was too early. No points awarded.";
+                messageEl.textContent = 'Round scored! Press NEXT SONG.';
+            }
+
+            gameState = 'ROUND_OVER';
+            updateButtonState();
+        }
+
+
+        // --- Utility and Reset Functions ---
+        function stopAudio() {
+            clearTimeout(fadeTimer);
+            if (audio) {
+                audio.pause();
+                audio.volume = 0.0;
+            }
+        }
+        
+        function nextRound() {
+            currentSongIndex++; 
+            
+            // If there are more songs, go back to SETUP
+            if (currentSongIndex < SONG_LIBRARY.length) {
+                updateSongDisplay();
+                gameState = 'SETUP';
+                updateButtonState();
+                messageEl.textContent = `Ready for Round ${roundNumber + 1}! Press START.`;
+                guessPhaseEl.classList.remove('hidden');
+                revealPhaseEl.classList.add('hidden');
+                finalScorePhaseEl.classList.add('hidden');
+                winnerDisplayEl.textContent = '';
+            } else {
+                // Game over: transition to the final scores page
+                displayFinalScores();
+            }
+        }
+        
+        function displayFinalScores() {
+             // Hide all other phases
+            guessPhaseEl.classList.add('hidden');
+            revealPhaseEl.classList.add('hidden');
+            winnerDisplayEl.textContent = '';
+            
+            // Show the final score phase
+            finalScorePhaseEl.classList.remove('hidden');
+
+            const players = Object.values(PLAYER_KEYS);
+            // Sort by score descending
+            players.sort((a, b) => b.score - a.score);
+
+            const finalScoreTableContainer = document.getElementById('finalScoreTableContainer');
+
+            let tableHTML = `
+                <table class="min-w-full divide-y divide-gray-200 shadow-xl rounded-lg overflow-hidden">
+                    <thead class="bg-indigo-600 text-white">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Rank</th>
+                            <th class="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Player</th>
+                            <th class="px-6 py-4 text-center text-sm font-bold uppercase tracking-wider">Total Score</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+            `;
+            
+            players.forEach((player, index) => {
+                const isWinner = index === 0 && player.score > 0;
+                // Highlight the overall winner(s)
+                const rowClass = isWinner ? 'bg-yellow-50 font-extrabold' : 'bg-white';
+                
+                tableHTML += `
+                    <tr class="${rowClass}">
+                        <td class="px-6 py-4 whitespace-nowrap text-lg text-indigo-800">${index + 1}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-lg text-gray-900">${player.name}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center text-2xl font-mono text-indigo-600">${player.score}</td>
+                    </tr>
+                `;
+            });
+
+            tableHTML += '</tbody></table>';
+            finalScoreTableContainer.innerHTML = tableHTML;
+            
+            // Update message for final scores
+            messageEl.textContent = 'Game concluded! Press RESET GAME to play again.';
+
+            // Set game state for button handling - ensure only reset is prominent
+            gameState = 'FINAL_SCORES_DISPLAYED'; // New state for final display
+            updateButtonState(); // This will disable NEXT SONG and enable RESET GAME
+        }
+        
+        function resetGame() {
+            stopAudio();
+            stopTimer(0);
+            clearTimeout(fadeTimer); // Clear any pending fade timer
+            clearTimeout(revealStopTimer);
+
+            // Reset all state variables
+            roundNumber = 0; 
+            currentSongIndex = 0;
+            gameState = 'SETUP';
+            
+            // Reset all scores and states
+            Object.values(PLAYER_KEYS).forEach(player => {
+                player.score = 0;
+                player.pressed = false;
+                player.time = null;
+            });
+            
+            // Reset UI
+            updateButtonState();
+            messageEl.textContent = 'Game Reset. Click START to begin Round 1!';
+            roundDisplay.textContent = '0';
+            gameTimerEl.textContent = '00.00';
+            guessPhaseEl.classList.remove('hidden');
+            revealPhaseEl.classList.add('hidden');
+            finalScorePhaseEl.classList.add('hidden'); 
+            winnerDisplayEl.textContent = '';
+            
+            createPlayerBoxes(); 
+        }
+
+        // --- Event Listener for Keyboard Input (USB Buttons) ---
+        document.addEventListener('keydown', (event) => {
+            const key = event.key.toLowerCase();
+            if (PLAYER_KEYS[key]) {
+                event.preventDefault(); 
+                recordTime(key, performance.now());
+            }
+        });
+        
+    </script>
+</body>
+</html>
